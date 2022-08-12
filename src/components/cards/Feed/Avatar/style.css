@@ -1,0 +1,19 @@
+
+.card-container .avatar {
+  width: 48px;
+  height: 100%;
+  margin-right: 12px;
+}
+
+.card-container .avatar .logo {
+  overflow: hidden;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  border: 1px solid black;
+}
+
+.card-container .avatar .logo img {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,33 @@
+.card-container .content {
+  flex: 1;
+  height: 100%;
+}
+
+.card-container .content .handler-section {
+  display: flex;
+}
+
+.card-container .content .handler-section .handler {
+  font-weight: bold;
+}
+
+.card-container .content .handler-section .handler a:hover {
+  text-decoration: underline;
+}
+
+.card-container .content .handler-section .replyTo {
+  color: grey;
+}
+
+.card-container .content .handler-section .seperator {
+  padding: 0 4px;
+}
+
+.card-container .content .handler-section .timestamp {
+  color: grey;
+}
+
+.card-container .content .paragraph {
+  margin-bottom: 15px;
+  text-align: left;
+}
