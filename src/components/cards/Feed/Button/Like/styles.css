@@ -2,3 +2,12 @@
   display: flex;
   flex-direction: row;
 }
+
+.like-container .heart-container {
+  width: 20px;
+  height: 20px;
+}
+
+.like-container .like-counter {
+  width: 20px;
+}
