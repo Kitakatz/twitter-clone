@@ -1,9 +1,14 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, waitForOptions } from "@testing-library/react";
 import Button from "..";
+import { count } from "./utils";
+
+const countText: string = count.toString();
+const countAsInteger: number = count;
+const _waitForOptions: waitForOptions = { timeout: 2250 };
 
 beforeEach( async () => {
   render(<Button.Like />);
-  await waitFor(() => screen.getByTestId("like-button"));
+  await waitFor(() => screen.getByTestId("like-button"), _waitForOptions);
 });
 
 test('If component returns null when initializes', () => {
@@ -13,84 +18,61 @@ test('If component returns null when initializes', () => {
 });
 
 describe('Like Counter', () => {
-  test('If like counter should increment by 1 async', async () => {
+  
+  test(`If like counter initiatilizes to ${countText}`, () => {
+    const likeCounterNode = screen.getByTestId("like-counter");
+    
+    expect(likeCounterNode.innerHTML).toEqual(countText);
+  });
+
+  test('If like counter should increment by 1', async () => {
     render(<Button.Like />);
-    const onClickNodeAsync = await waitFor(() => screen.getByTestId('like-button'));
+    const onClickNodeAsync = await waitFor(() => screen.getByTestId('like-button'), _waitForOptions);
 
     fireEvent.click(onClickNodeAsync);
 
-    const count = await waitFor(() => screen.getByText('1'));
+    const text = (countAsInteger + 1).toString();
+    const count = await waitFor(() => screen.getByText(text), _waitForOptions);
 
-    expect(count.innerHTML).toBe('1');
+    expect(count.innerHTML).toBe(text);
   });
 
-  // test('If like counter initiatilizes to 0' , () => {
-  //   render(<Button.Like />);
+  test("If un liking, the counter should deincrement", async () => {
+    const onClickNode = screen.getByTestId("like-button");
+    const likeCounterNode = screen.getByTestId("like-counter");
 
-  //   const onClickNode = screen.getByTestId('like-counter');
+    fireEvent.click(onClickNode);
+    const text = (countAsInteger + 1).toString();
+    await waitFor(() => screen.getByText(text), _waitForOptions);
 
-  //   expect(onClickNode.innerHTML).toEqual('0');
-  // });
+    fireEvent.click(onClickNode);
+    await waitFor(() => screen.getByText(countText), _waitForOptions);
 
-  // test('If like counter should increment by 1', () => {
-  //   render(<Button.Like />);
-
-  //   const onClickNode = screen.getByTestId('like-counter');
-
-  //   fireEvent.click(onClickNode);
-
-  //   expect(onClickNode.innerHTML).toEqual('1');
-  // });
-
-  // test('If un liking. the counter should decrement', () => {
-  //   render(<Button.Like />);
-    
-  //   const onClickNode = screen.getByTestId('like-counter');
-
-  //   fireEvent.click(onClickNode);
-  //   fireEvent.click(onClickNode);
-
-  //   expect(onClickNode.innerHTML).toEqual('0');
-  // });
+    expect(likeCounterNode.innerHTML).toEqual(countText);
+  });
 });
+ 
+describe("Heart icon", () => {
+  test("Heart icon node initializes to unliked", () => {
+    const heartSVGIcon = screen.getByTestId("heart-icon");
 
-// describe('Heart icon', () => {
-//   test('Heart icon node initializes to unliked', () => {
-//     render(<Button.Like />)
-  
-//     const heartSVGIcon = screen.getByTestId('heart-icon');
-  
-//     let classes: string[] = heartSVGIcon.classList.toString().split(' ');
-//     classes = classes.filter((className: string) => className === 'unliked');
-  
-//     expect(classes[0]).toBe('unliked');
-//   });
-  
-//   test('Heart icon node toggles to liked', () => {
-//     render(<Button.Like />)
-  
-//     const heartSVGIcon = screen.getByTestId('heart-icon');
-//     const onClickNode = screen.getByTestId('like-button');
-  
-//     fireEvent.click(onClickNode);
-  
-//     let classes: string[] = heartSVGIcon.classList.toString().split(' ');
-//     classes = classes.filter((className: string) => className === 'liked');
-  
-//     expect(classes[0]).toBe('liked');
-//   });  
-// });
+    let classes: string[] = heartSVGIcon.classList.toString().split(" ");
+    classes = classes.filter((className: string) => className === "unliked");
 
-// describe('Network Like Counter Requests', () => {
-//   test('If like increments by 1 on the server', () => {
-//     render(<Button.Like />);
+    expect(classes[0]).toBe("unliked");
+  });
 
-//     // console.log('Http response: ', response);
+  test("Heart icon node toggles to liked", async () => {
+    const heartSVGIcon = screen.getByTestId("heart-icon");
+    const onClickNode = screen.getByTestId("like-button");
 
-//     const onClickNode = screen.getByTestId('like-counter');
-    
-//     fireEvent.click(onClickNode);
+    fireEvent.click(onClickNode);
+    const text = (countAsInteger + 1).toString();
+    await waitFor(() => screen.getByText(text), _waitForOptions);
 
-//     expect(onClickNode.innerHTML).toEqual('1');
-//   });
-// });
+    let classes: string[] = heartSVGIcon.classList.toString().split(" ");
+    classes = classes.filter((className: string) => className === "liked");
+
+    expect(classes[0]).toBe("liked");
+  });
+});

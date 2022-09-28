@@ -13,3 +13,4 @@ export interface UseLikeHook {
   onClickHandler: () => void;
   componentDidMountHandler: () => Promise<void>;
 };
+
