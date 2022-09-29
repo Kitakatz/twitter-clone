@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Icons from '../../../../icons';
 import useLikeHook from './hooks';
-import { LikeProps } from "./interface";
+import { LikeProps } from './interface';
 import './styles.css';
-
 
 const Like: React.FC<LikeProps> = (): React.ReactElement | null => {
   const { state, onClickHandler, componentDidMountHandler } = useLikeHook();
@@ -24,7 +24,7 @@ const Like: React.FC<LikeProps> = (): React.ReactElement | null => {
         <Icons.Heart isToggled={state.isLiked} />
       </div>
       <div data-testid='like-counter' className='like-counter'>{state.counter}</div>
-    </div>
+    </ div>
   );
 };
 

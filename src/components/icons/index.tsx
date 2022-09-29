@@ -1,8 +1,8 @@
 import Heart from './Heart';
-import { Heartprops } from './Heart/interface';
+import { HeartProps } from './Heart/interface';
 
 const Icons: {
-  Heart: React.FC<Heartprops>
+  Heart: React.FC<HeartProps>
 } = (): void => {};
 
 Icons.Heart = Heart;

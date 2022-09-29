@@ -1,3 +1,3 @@
-export interface Heartprops {
+export interface HeartProps {
   isToggled: boolean;
 };
