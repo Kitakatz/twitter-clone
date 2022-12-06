@@ -23,7 +23,15 @@ const Reply: React.FC<ReplyFormProps> = (props): React.ReactElement => {
   const onSubmitHandler = ( ): void => {
     const foundTweet = tweetState.tweets.find((tweet) => tweet.id === replyOverlayState.tweetID);
 
+    foundTweet?.replies.push({
+      id: '03',
+      author: 'Kitakat',
+      tweet: 'Hello world.'
+    });
+
     console.log('foundTweet', foundTweet);
+
+    dispatch({ type: 'updateTweets', payload: [...tweetState.tweets, foundTweet] });
 
     // const tweet: Tweet = {
     //   id: '04',
