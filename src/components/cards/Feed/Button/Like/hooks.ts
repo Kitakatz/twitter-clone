@@ -4,7 +4,7 @@ import { httpGetCountRequest, httpPostDecrementCountRequest, httpPostIncrementCo
 
 const useLikeHook = (): UseLikeHook => {
   const [state, setState] = useState<LikeState>({
-    counter: 0,
+    counter: 0, //tweet id counter 
     isLiked: false
   });
 

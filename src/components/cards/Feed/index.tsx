@@ -1,24 +1,42 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Cards from '..';
+import Layout from '../../layout';
 import Button from './Button';
 import { FeedProps } from './interfaces';
-import './style.css';
+import './styles.css';
 
-const Feed: React.FC<FeedProps> = (): React.ReactElement => {
+const Feed: React.FC<FeedProps> = (props): React.ReactElement => {
   return (
-    <div className='card-container'>   
-      <div className='column'>
-        <Cards.Avatar />
-      </div>
-      <div className='column'>
-        <Cards.Content /> 
-        <div className='buttons-container' data-testid= 'custom-element'>
-          <Button.Like />
-          <div className='square'></div>
-          <div className='square'></div>
-          <div className='square'></div>
-        </div>
-      </div> 
+    <div className="card-container">
+      <Link 
+        to={`detail/${props.tweet.id}`}
+      >
+        <Layout.Row>
+          <Layout.Column>
+            <Cards.Avatar />
+          </Layout.Column>
+          <Layout.Column>
+            <Cards.Content tweet={props.tweet} />
+            <div className="buttons-container" data-testid="custom-element">
+              <Layout.Row width="100%" justifyContent="space-between">
+                <Layout.Column>
+                  <Button.Like tweetLikeCount={props.tweet.likes} />
+                </Layout.Column>
+                <Layout.Column>
+                  <Button.Reply tweetID={props.tweet.id} />
+                </Layout.Column>
+                <Layout.Column>
+                  <div className="square"></div>
+                </Layout.Column>
+                <Layout.Column>
+                  <div className="square"></div>
+                </Layout.Column>
+              </Layout.Row>
+            </div>
+          </Layout.Column>
+        </Layout.Row>
+      </Link>
     </div>
   );
 };

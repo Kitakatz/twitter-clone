@@ -1,0 +1,15 @@
+.reply-card-container {
+  box-sizing: border-box;
+  z-index: 999999;
+  position: absolute;
+  max-width: 600px;
+  width: 100%;
+  background-color: #FFF;
+  border-radius: 16px;
+  padding: 0 16px;
+}
+
+.reply-card-container .close {
+  width: 25px;
+  height: 25px;
+}

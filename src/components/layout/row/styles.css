@@ -1,0 +1,4 @@
+.row-container {
+  box-sizing: border-box;
+  display: flex;
+};

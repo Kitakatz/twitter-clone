@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Cards from './components/cards';
-import Containers from './components/containers';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Screens from './components/screens';
 
 const App = () => {
   return (
-    <div className='App'>
-      <Containers.Home>
-        <Containers.Feed>
-          <Cards.Feed />
-        </Containers.Feed>
-      </Containers.Home>
-    </div>
+    <Router>
+      <Routes>
+        <Route 
+          path='/home'
+          element={<Screens.Home />}
+        />
+        <Route 
+          path='/home/detail/:id'
+          element={<Screens.Detail />}
+        />
+      </Routes>
+    </Router>
   );
 };
 

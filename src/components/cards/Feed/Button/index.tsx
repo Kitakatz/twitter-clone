@@ -6,7 +6,7 @@ import { ReplyProps } from './Reply/interface';
 
 const Button: {
   Like: React.FC<LikeProps>,
-  Reply: React.FC<ReplyProps>,
+  Reply: React.FC<ReplyProps>
 } = (): void => {
 };
 

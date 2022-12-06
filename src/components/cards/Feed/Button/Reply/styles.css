@@ -1,0 +1,9 @@
+.reply-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.reply-container .comment-container {
+  width: 20px;
+  height: 20px;
+}

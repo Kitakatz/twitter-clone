@@ -1,0 +1,39 @@
+.detail-tweets-container {
+  flex: 1;
+}
+
+.detail-tweets-container .tweet {
+  padding: 12px 18px;
+}
+
+.detail-tweets-container .tweet:hover {
+  background-color: #F7F7F7;
+}
+
+.detail-tweets-container .tweet .handler-section {
+  display: flex;
+}
+
+.detail-tweets-container .tweet .handler-section .handler {
+  font-weight: bold;
+}
+
+.detail-tweets-container .tweet .handler-section .handler a:hover {
+  text-decoration: underline;
+}
+
+.detail-tweets-container .tweet .handler-section .replyTo {
+  color: grey;
+}
+
+.detail-tweets-container .tweet .handler-section .seperator {
+  padding: 0 4px;
+}
+
+.detail-tweets-container .tweet .handler-section .timestamp {
+  color: grey;
+}
+
+.detail-tweets-container .tweet .paragraph {
+  margin-bottom: 15px;
+}

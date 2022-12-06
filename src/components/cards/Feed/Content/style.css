@@ -1,6 +1,5 @@
 .card-container .content {
   flex: 1;
-  height: 100%;
 }
 
 .card-container .content .handler-section {
@@ -29,5 +28,4 @@
 
 .card-container .content .paragraph {
   margin-bottom: 15px;
-  text-align: left;
 }

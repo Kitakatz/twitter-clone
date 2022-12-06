@@ -1,0 +1,13 @@
+.card-container {
+  padding: 12px 18px;
+}
+
+.card-container .buttons-container {
+  margin-top: 12px;
+}
+
+.card-container .buttons-container .square {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+}

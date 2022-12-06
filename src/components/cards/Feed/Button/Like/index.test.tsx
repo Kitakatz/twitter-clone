@@ -7,12 +7,12 @@ const countAsInteger: number = count;
 const _waitForOptions: waitForOptions = { timeout: 2250 };
 
 beforeEach( async () => {
-  render(<Button.Like />);
+  render(<Button.Like tweetLikeCount={0} />);
   await waitFor(() => screen.getByTestId("like-button"), _waitForOptions);
 });
 
 test('If component returns null when initializes', () => {
-  const component = render(<Button.Like />);
+  const component = render(<Button.Like tweetLikeCount={0} />);
 
   expect(component.container.innerHTML).toBeFalsy();
 });
@@ -26,7 +26,7 @@ describe('Like Counter', () => {
   });
 
   test('If like counter should increment by 1', async () => {
-    render(<Button.Like />);
+    render(<Button.Like tweetLikeCount={0} />);
     const onClickNodeAsync = await waitFor(() => screen.getByTestId('like-button'), _waitForOptions);
 
     fireEvent.click(onClickNodeAsync);
