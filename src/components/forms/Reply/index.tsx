@@ -30,10 +30,7 @@ const Reply: React.FC<ReplyFormProps> = (props): React.ReactElement => {
       tweet: state.value
     });
 
-    console.log('foundTweet', foundTweet);
-    console.log('Tweets', [...tweetState.tweets, foundTweet] );
-
-    dispatch({ type: 'updateTweets', payload: [...tweetState.tweets, foundTweet] });
+    dispatch({ type: 'updateTweets', payload: [...tweetState.tweets]});
     replyOverlayDispatch({ type: 'TOGGLE', payload: { tweetID: foundTweet?.id } });
   };
 

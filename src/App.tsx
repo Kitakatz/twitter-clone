@@ -7,7 +7,9 @@ import Providers from './contexts';
 const App = () => {
   const HomeScreenElement: React.ReactElement = (
     <Providers.ReplyOverlayProvider>   
-      <Screens.Home />
+      <Providers.TweetsProvider>
+        <Screens.Home />
+      </Providers.TweetsProvider>
     </Providers.ReplyOverlayProvider>
   );
 

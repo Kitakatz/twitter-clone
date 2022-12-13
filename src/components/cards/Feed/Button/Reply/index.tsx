@@ -7,7 +7,8 @@ import './styles.css';
 const Reply: React.FC<ReplyProps> = (props):React.ReactElement => {
   const { dispatch } = useContext(ReplyOverlayContext);
 
-  const onClickHandler = (): void => {
+  const onClickHandler = (event: React.MouseEvent<HTMLElement>): void => {
+    event.preventDefault();
     dispatch({ type: 'TOGGLE', payload: props.tweetID });
   };
 
