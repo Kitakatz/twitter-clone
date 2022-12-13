@@ -13,7 +13,7 @@ interface Reply {
   tweet: string;
 };
 
-const tweets: Tweet[] = [
+export const tweets: Tweet[] = [
   {
     id: "01",
     author: "AWS Amplify",
@@ -50,6 +50,3 @@ const tweets: Tweet[] = [
     replies: []
   },
 ];
-
-export default tweets;
-

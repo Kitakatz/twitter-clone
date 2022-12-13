@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import sum from './sum';
 import Feed from '.';
-import tweets from '../../../data/tweets';
+import { tweets } from '../../../data/tweets';
 import { BrowserRouter } from 'react-router-dom';
 
 // todo

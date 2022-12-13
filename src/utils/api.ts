@@ -1,4 +1,4 @@
-import tweets, { Tweet } from '../data/tweets';
+import { Tweet, tweets as localTweets } from '../data/tweets';
 
 const getAllTweets = async (): Promise<Tweet[]> => {
   return new Promise((resolve,reject) => {
@@ -7,12 +7,12 @@ const getAllTweets = async (): Promise<Tweet[]> => {
 
       if (error) return reject('Network error.');
 
-      resolve(tweets);
+      resolve(localTweets);
     }, 2000);
   });
 };
 
-const getTweetById = async ( tweetID: string | undefined ): Promise<Tweet> => {
+const getTweetById = async ( tweetID: string | undefined, tweets: Tweet[]): Promise<Tweet> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const error: boolean = false;

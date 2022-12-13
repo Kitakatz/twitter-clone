@@ -1,5 +1,5 @@
 import { ActionType, TweetsProviderState } from '.';
-import tweets from '../../data/tweets';
+import { tweets } from '../../data/tweets';
 
 export const initialState: TweetsProviderState = {
   tweets: tweets,

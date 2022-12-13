@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TweetsContext } from '../../../contexts/Tweets';
 import Cards from '../../cards';
 import Layout from '../../layout';
 import { DetailTweetsProps } from './interfaces';
 import './styles.css';
 
 const DetailTweets: React.FC<DetailTweetsProps> = (props): React.ReactElement | null => {
- const renderItems = (): React.ReactElement[] => {
-    const items = props.items.map((item) => {
+  const { state } = useContext(TweetsContext);
+
+  const renderItems = (): React.ReactElement[] => {
+    const items = state.tweets[0].replies.map((item) => {
       return (
         <div key={ item.id } className='tweet'>
           <Layout.Row>
