@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface FadeInFromTopProps {
+export interface FadeInFromTopProps {
   children: React.ReactNode;
   index: number;
 };

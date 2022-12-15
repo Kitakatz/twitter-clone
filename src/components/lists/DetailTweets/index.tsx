@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { TweetsContext } from '../../../contexts/Tweets';
+import Animations from '../../animations';
 import FadeInFromTop from '../../animations/FadeInFromTop';
 import Cards from '../../cards';
 import Layout from '../../layout';
@@ -12,7 +13,7 @@ const DetailTweets: React.FC<DetailTweetsProps> = (props): React.ReactElement | 
   const renderItems = (): React.ReactElement[] => {
     const items = props.items.map((item, index: number) => {
       return (
-        <FadeInFromTop index={index}>
+        <Animations.FadeInFromTop index={index}>
           <div key={item.id} className="tweet">
             <Layout.Row>
               <Layout.Column>
@@ -29,7 +30,7 @@ const DetailTweets: React.FC<DetailTweetsProps> = (props): React.ReactElement | 
               </Layout.Column>
             </Layout.Row>
           </div>
-        </FadeInFromTop>
+        </Animations.FadeInFromTop>
       );
     });
 
