@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { LikeState, UseLikeHook } from './interface';
 import { httpGetCountRequest, httpPostDecrementCountRequest, httpPostIncrementCountRequest } from './utils';
 
@@ -8,7 +8,8 @@ const useLikeHook = (): UseLikeHook => {
     isLiked: false
   });
 
-  const onClickHandler = async (): Promise<void> => {
+  const onClickHandler = async (event: React.MouseEvent<HTMLElement>): Promise<void> => {
+    event.preventDefault();
     const countering = (isLiked: boolean, counter: number): number => !isLiked ? counter + 1 : counter - 1;
 
     setState(prevState => ({
