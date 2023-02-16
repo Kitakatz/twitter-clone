@@ -1,0 +1,5 @@
+.giphy-container {
+  overflow-x: hidden;
+  max-height: 650px;
+  object-fit: cover;
+}

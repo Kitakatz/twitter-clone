@@ -8,6 +8,7 @@ export interface ReplyOverlayProviderProps {
 export type ReplyOverlayProviderState = {
   isToggled: boolean;
   tweetID: string;
+  tweetPreview: string;
 };
 
 export type ActionType = {

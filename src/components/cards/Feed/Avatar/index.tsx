@@ -6,7 +6,7 @@ const Avatar: React.FC<AvatarProps> = (props): React.ReactElement => {
   return (
     <div className='avatar'>
       <div className='logo'>
-        <img src='/aws-amplified.png' alt='user-avatar' />
+        <img src={props.src ? props.src : '/aws-amplified.png'} alt='user-avatar' />
       </div>
     </div>
   );

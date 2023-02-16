@@ -8,6 +8,8 @@
 
 .card-container .content .handler-section .handler {
   font-weight: bold;
+  margin-right: 4px;
+  margin-bottom: 4px;
 }
 
 .card-container .content .handler-section .handler a:hover {
@@ -28,4 +30,5 @@
 
 .card-container .content .paragraph {
   margin-bottom: 15px;
+  line-height: 1.4;
 }

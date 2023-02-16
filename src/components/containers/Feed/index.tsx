@@ -4,7 +4,7 @@ import { FeedProps } from './interfaces';
 
 const Feed: React.FC<FeedProps> = (props): React.ReactElement => {
   return (
-    <div className='container'>{ props.children }</div>
+    <div className='feed-container'>{ props.children }</div>
   );
 };
 

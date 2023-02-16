@@ -11,6 +11,8 @@ interface Reply {
   id: string;
   author: string;
   tweet: string;
+  mediaURL: string;
+  mediaType: string;
 };
 
 export const tweets: Tweet[] = [
@@ -24,12 +26,16 @@ export const tweets: Tweet[] = [
       {
         id: '01',
         author: 'Michael',
-        tweet: 'I am a tweet.'
+        tweet: 'I am a tweet.',
+        mediaURL: '',
+        mediaType: ''
       },
       {
         id: '02',
         author: 'Andrew',
-        tweet: 'I am another tweet.'
+        tweet: 'I am another tweet.',
+        mediaURL: '',
+        mediaType: ''
       }
     ]
   },

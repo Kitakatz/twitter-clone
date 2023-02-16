@@ -9,10 +9,10 @@ const Detail: React.FC<DetailProps> = (props): React.ReactElement => {
   return (
     <div className="card-container">
       <Layout.Row>
-        <Layout.Column>
+        <Layout.Column width={48} marginRight={16}>
           <Cards.Avatar />
         </Layout.Column>
-        <Layout.Column>
+        <Layout.Column flex={1}>
           <Cards.Content tweet={props.tweet} />
           <div className="buttons-container" data-testid="custom-element">
             <Layout.Row width="100%" justifyContent="space-between">
@@ -20,7 +20,7 @@ const Detail: React.FC<DetailProps> = (props): React.ReactElement => {
                 <Button.Like tweetLikeCount={props.tweet.likes} />
               </Layout.Column>
               <Layout.Column>
-                <Button.Reply tweetID={props.tweet.id} />
+                <Button.Reply tweetID={props.tweet.id} tweetPreview={props.tweet.tweet} />
               </Layout.Column>
               <Layout.Column>
                 <div className="square"></div>

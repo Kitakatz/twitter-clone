@@ -24,7 +24,7 @@ const Feed: React.FC<FeedProps> = (props): React.ReactElement => {
                   <Button.Like tweetLikeCount={props.tweet.likes} />
                 </Layout.Column>
                 <Layout.Column>
-                  <Button.Reply tweetID={props.tweet.id} />
+                  <Button.Reply tweetID={props.tweet.id} tweetPreview={props.tweet.tweet} />
                 </Layout.Column>
                 <Layout.Column>
                   <div className="square"></div>

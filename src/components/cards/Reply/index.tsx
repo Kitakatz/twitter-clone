@@ -11,7 +11,7 @@ const Reply: React.FC<ReplyCardProps> = (): React.ReactElement => {
   const { dispatch } = useContext(ReplyOverlayContext)
 
   const onClickHandler = () => {
-    dispatch({ type: 'TOGGLE' });
+    dispatch({ type: 'TOGGLE', payload: { tweetID: '', tweetPreview: '' } });
   };
 
   return (

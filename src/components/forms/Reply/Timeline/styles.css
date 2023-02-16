@@ -1,0 +1,17 @@
+.reply-timeline {
+  display: flex; 
+  flex-direction: column; 
+  width: 48px;
+  height: 100%;
+  margin-right: 16px; 
+  justify-content: center;
+  align-items: center;
+}
+
+.reply-timeline .line {
+  width: 2px;
+  height: 100%;
+  background: #CFD9DE;
+  margin-top: 4px;
+  margin-bottom: 8px;
+};

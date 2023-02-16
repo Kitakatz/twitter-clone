@@ -1,0 +1,20 @@
+.navigation-container {
+    box-sizing: border-box;
+    width: 250px;
+    padding: 0px 12px;
+  }
+  
+  .navigation-container .nav-item {
+    font-size: 20px;
+  }
+  
+  .navigation-container .nav-item a {
+    display: inline-block;
+    padding: 12px;
+    border-radius: 100px;
+    transition: 0.5s;
+  }
+  
+  .navigation-container .nav-item a:hover {
+    background-color: rgba(15, 20, 25, 0.1);
+  }

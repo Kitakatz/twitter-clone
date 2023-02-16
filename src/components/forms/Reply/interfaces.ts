@@ -3,5 +3,7 @@ export interface ReplyFormProps {
 };
 
 export interface ReplyFormState {
-  value: string; 
-};
+  value: string;
+  file: File | null;
+  previewUrl: string;
+}; 

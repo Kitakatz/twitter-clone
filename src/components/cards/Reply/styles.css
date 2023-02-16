@@ -12,4 +12,5 @@
 .reply-card-container .close {
   width: 25px;
   height: 25px;
+  cursor: pointer;
 }

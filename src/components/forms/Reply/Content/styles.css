@@ -1,0 +1,46 @@
+.reply-preview-content {
+  flex: 1;
+  padding-bottom: 20px;
+}
+
+.reply-preview-content .handler-section {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.reply-preview-content .handler-section .handler {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.reply-preview-content .handler-section .handler a:hover {
+  text-decoration: underline;
+}
+
+.reply-preview-content .handler-section .replyTo {
+  color: grey;
+}
+
+.reply-preview-content .handler-section .seperator {
+  padding: 0 4px;
+}
+
+.reply-preview-content .handler-section .timestamp {
+  color: grey;
+}
+
+.reply-preview-content .paragraph {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.reply-preview-content .replying-to { 
+  font-size: 14px;
+  font-weight: bold;
+  color: grey;
+}
+
+.reply-preview-content .replying-to a { 
+  color: rgb(29, 155, 240);
+  text-decoration: none;
+}
