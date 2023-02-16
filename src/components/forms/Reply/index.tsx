@@ -145,6 +145,7 @@ const Reply: React.FC<ReplyFormProps> = (props): React.ReactElement => {
               placeholder='Tweet your reply'
               value={state.value}
               onChange={onChangeHandler}
+              data-testid= 'reply-tweet'
             />
             {state.previewUrl || giphyOverlayContext.state.gif ? renderPreview() : null}
             <Footer 
