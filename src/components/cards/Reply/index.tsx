@@ -1,5 +1,6 @@
 import { LayoutGroupContext } from 'framer-motion';
 import React, { useContext } from 'react';
+import { GiphyOverlayActionType, GiphyOverlayContext } from '../../../contexts/GiphyOverlay';
 import { ReplyOverlayContext } from '../../../contexts/ReplyOverlay';
 import Forms from '../../forms';
 import Icons from '../../icons';
@@ -8,10 +9,12 @@ import { ReplyCardProps } from './interfaces';
 import './styles.css';
 
 const Reply: React.FC<ReplyCardProps> = (): React.ReactElement => {
-  const { dispatch } = useContext(ReplyOverlayContext)
+  const { dispatch } = useContext(ReplyOverlayContext);
+    const giphyOverlayContext = useContext(GiphyOverlayContext);
 
   const onClickHandler = () => {
     dispatch({ type: 'TOGGLE', payload: { tweetID: '', tweetPreview: '' } });
+    giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE_RESET });
   };
 
   return (
