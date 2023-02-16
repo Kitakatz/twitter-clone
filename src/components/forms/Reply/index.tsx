@@ -67,6 +67,8 @@ const Reply: React.FC<ReplyFormProps> = (props): React.ReactElement => {
     }));
 
     imageFileRef.current.value = '';
+    
+    giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE_RESET })
   };
 
   const renderPreview = (): React.ReactElement | null => {
