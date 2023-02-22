@@ -28,8 +28,10 @@ const Footer = React.forwardRef<HTMLInputElement, FooterProps>((props, ref): Rea
       </Layout.Column>
       <Layout.Column>
         <Buttons.Primary
+          data-testid='tweet-reply-button'
           label='Reply'
           onClick={props.onSubmitHandler}
+          disabled={!props.tweet ? true : false}
         />
       </Layout.Column>
     </Layout.Row>

@@ -11,9 +11,16 @@ const DetailTweets: React.FC<DetailTweetsProps> = (props): React.ReactElement | 
   const { state } = useContext(TweetsContext);
 
   const renderPreview = (mediaType: string, mediaURL: string): React.ReactElement | null => {
+    if (mediaType === 'image/gif') return (
+      <div className='image-preview'>
+        <img src={mediaURL} style={{ width: '100%' }} />
+      </div>
+    );
+
+
     if ( mediaType === 'image/jpeg' ) return (
       <div className='image-preview'>
-        <img src={mediaURL} style={{ width: '100%' }}/>
+        <img src={mediaURL} style={{ width: '100%' }} />
       </div>
     );
 
