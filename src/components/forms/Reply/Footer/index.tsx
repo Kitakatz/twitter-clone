@@ -9,22 +9,26 @@ const Footer = React.forwardRef<HTMLInputElement, FooterProps>((props, ref): Rea
   return (
     <Layout.Row marginTop={10} marginBottom={16}>
       <Layout.Column flex='1'>
-        <div className='media-icon' onClick={props.onClickFileHandler}>
-          <Icons.Media />
-        </div>
-        <input
-          type='file'
-          name='file'
-          onChange={props.onChangeFileHandler}
-          ref={ref}
-          accept='.jpeg, .png, image/png, .gif, .mp4, application/mp4'
-          style={{ display: 'none' }}
-        />
-      </Layout.Column>
-      <Layout.Column flex='1'>
-        <div className='gif-icon' onClick={props.onClickGifHandler}>
-          <Icons.Gif />
-        </div>
+        <Layout.Row>
+          <Layout.Column>
+            <div className='media-icon' onClick={props.onClickFileHandler}>
+              <Icons.Media />
+            </div>
+            <input
+              type='file'
+              name='file'
+              onChange={props.onChangeFileHandler}
+              ref={ref}
+              accept='.jpeg, .png, image/png, .gif, .mp4, application/mp4'
+              style={{ display: 'none' }}
+            />
+          </Layout.Column>
+          <Layout.Column marginLeft='14px'>
+            <div className='gif-icon' onClick={props.onClickGifHandler}>
+              <Icons.Gif />
+            </div>
+          </Layout.Column>     
+        </Layout.Row>
       </Layout.Column>
       <Layout.Column>
         <Buttons.Primary
