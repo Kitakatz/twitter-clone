@@ -15,3 +15,7 @@
 .primary-button:hover {
   background-color: rgb(26, 140, 216);
 }
+
+.primary-button:disabled {
+  opacity: 0.5;
+}
