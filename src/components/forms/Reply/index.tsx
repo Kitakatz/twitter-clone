@@ -121,7 +121,7 @@ const Reply: React.FC<ReplyFormProps> = (props): React.ReactElement => {
         tweet: state.value,
         mediaURL: mediaURL,
         mediaType: mediaType,
-        likes: 20,
+        likes: 0,
         tweetID: replyOverlayState.tweetID
       };
       
