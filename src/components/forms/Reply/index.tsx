@@ -13,6 +13,10 @@ import Timeline from './Timeline';
 import Preview from './Preview';
 import Footer from './Footer';
 import { GiphyOverlayActionType, GiphyOverlayContext } from '../../../contexts/GiphyOverlay';
+import axios from 'axios';
+import { API } from '../../../utils/api';
+import Cache from '../../../utils/cache';
+import { Tweet } from '../../../data/tweets';
 
 const Reply: React.FC<ReplyFormProps> = (props): React.ReactElement => {
   const { state: tweetState, dispatch } = useContext(TweetsContext);
@@ -100,25 +104,49 @@ const Reply: React.FC<ReplyFormProps> = (props): React.ReactElement => {
     return null;
   };
 
+  const setTweetStorage = (tweets: Tweet[]): void => {
+    dispatch({ type: 'UPDATE_TWEETS', payload: { tweets: tweets, isLoading: false } });
+  };
 
-  const onSubmitHandler = ( ): void => {
-    console.log('Reference', imageFileRef);
-    const foundTweet = tweetState.tweets.find((tweet) => tweet.id === replyOverlayState.tweetID);
-    let mediaType: string = '';
-    if (state.file) mediaType = state.file.type;
-    if (giphyOverlayContext.state.gif) mediaType = 'image/gif';
+  const onSubmitHandler = async ( ): Promise<void> => {
+    try {
+      let mediaType: string = '';
+      const mediaURL: string = state.previewUrl || giphyOverlayContext.state.gif;
+      if (state.file) mediaType = state.file.type;
+      if (giphyOverlayContext.state.gif) mediaType = 'image/gif';
 
-    foundTweet?.replies.push({
-      id: uuid(),
-      author: 'Kitakat',
-      tweet: state.value,
-      mediaURL: state.previewUrl || giphyOverlayContext.state.gif,
-      mediaType: mediaType
-    });
+      const reply = {
+        id: uuid(),
+        author: 'Kitakat',
+        tweet: state.value,
+        mediaURL: mediaURL,
+        mediaType: mediaType,
+        likes: 20,
+        tweetID: replyOverlayState.tweetID
+      };
+      
+      const tweet = tweetState.tweets.find((tweet) => tweet.id === replyOverlayState.tweetID);
+      if (!tweet) return;
+      
+      tweet.replies.push(reply);
+      Cache().setTweets(tweetState.tweets, setTweetStorage);
 
-    dispatch({ type: 'UPDATE_TWEETS', payload: [ ...tweetState.tweets ] });
-    replyOverlayDispatch({ type: 'TOGGLE', payload: { tweetID: foundTweet?.id } });
-    giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE_RESET });
+      replyOverlayDispatch({ type: 'TOGGLE', payload: { tweetID: replyOverlayState.tweetID } });
+      giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE_RESET });
+      
+      const response = await API().addReply(reply);
+      if (response.data.error) throw new Error(response.data.error.message);
+
+    } catch (error) {
+      console.log(error);
+
+      const tweet = tweetState.tweets.find((tweet) => tweet.id === replyOverlayState.tweetID);
+      tweet?.replies.pop();
+
+      const tweetsForCache = JSON.stringify(tweetState.tweets);
+      localStorage.setItem('@tweets', tweetsForCache);
+      setTweetStorage(tweetState.tweets);
+    };
   };
 
   useEffect(() => {

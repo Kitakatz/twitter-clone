@@ -1,0 +1,16 @@
+// const params: AxiosGetParams = {
+//   id: parameters.id
+// }
+
+// const response = await axios.get<any, AxiosGetResponse, any>('http://localhost:3001/fetchTweetById', {
+//   params: params
+// });
+
+// const tweet: Tweet = response.data.tweet;
+
+
+//Check cache 
+
+//Check cache
+//Cache is empty, pull data
+//Store to cache

@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import Icons from '../../../../icons';
 import useLikeHook from './hooks';
 import { LikeProps } from './interface';
 import './styles.css';
 
-const Like: React.FC<LikeProps> = (): React.ReactElement | null => {
-  const { state, onClickHandler, componentDidMountHandler } = useLikeHook();
+const Like: React.FC<LikeProps> = (props): React.ReactElement | null => {
+  const { state, onClickHandler, componentDidMountHandler } = useLikeHook(props.tweetID);
 
   useEffect(() => {
     componentDidMountHandler();
-  }, []);
+  }, [componentDidMountHandler]);
 
   if ( !state.counter ) return null;
 

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { LikeState, UseLikeHook } from './interface';
-import { httpGetCountRequest, httpPostDecrementCountRequest, httpPostIncrementCountRequest } from './utils';
+import { API } from '../../../../../utils/api';
+import { useParams } from 'react-router-dom';
+import { RouterParams } from '../../../../screens/Detail/interfaces';
 
-const useLikeHook = (): UseLikeHook => {
+const useLikeHook = (tweetID: string): UseLikeHook => {
+  const params = useParams<RouterParams>();
   const [state, setState] = useState<LikeState>({
-    counter: 0, //tweet id counter 
+    counter: 0,
     isLiked: false
   });
 
@@ -12,14 +15,12 @@ const useLikeHook = (): UseLikeHook => {
     event.preventDefault();
     const countering = (isLiked: boolean, counter: number): number => !isLiked ? counter + 1 : counter - 1;
 
-    setState(prevState => ({
-      counter: countering(prevState.isLiked, prevState.counter),
-      isLiked: !prevState.isLiked
-    }));
-
     try {
-      const response = !state.isLiked ? await httpPostIncrementCountRequest() : await httpPostDecrementCountRequest();
-      console.log('Response successful: ', response);
+      !state.isLiked ?   await API().like(params.id || '') : await API().unlike(params.id || '');
+      setState(prevState => ({
+        counter: countering(prevState.isLiked, prevState.counter),
+        isLiked: !prevState.isLiked
+      }));
     } catch (error) {
       console.error('Error has been detected. Reverting state.. ', error);
       setState(prevState => ({
@@ -29,11 +30,12 @@ const useLikeHook = (): UseLikeHook => {
     };
   };
 
-  const componentDidMountHandler = async (): Promise<void> => {
-    const response = await httpGetCountRequest();
-    
-    setState({ counter: response.data.likeCounter, isLiked: false });
-  };
+  const componentDidMountHandler = useCallback(async () => {
+    const likes = await API().fetchLikes( params.id || tweetID );
+
+    setState({ counter: likes, isLiked: false });
+  }, []);
+  
 
   return {
     state: state,

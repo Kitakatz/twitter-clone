@@ -1,5 +1,6 @@
 export interface LikeProps {
   tweetLikeCount: number;
+  tweetID: string;
 };
 
 export interface LikeState { 

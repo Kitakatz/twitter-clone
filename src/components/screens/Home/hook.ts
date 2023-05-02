@@ -1,21 +1,36 @@
-import { useEffect, useState } from 'react';
-import { getAllTweets } from '../../../utils/api';
-import { HomeScreenState, UseHomeScreenHookResponse } from './interfaces';
+import { useContext, useEffect } from 'react';
+import { UseHomeScreenHookResponse } from './interfaces';
+import { TweetsContext } from '../../../contexts/Tweets';
+import { API } from '../../../utils/api';
+import Cache from '../../../utils/cache';
+import { Tweet } from '../../../data/tweets';
+
 
 const useHomeScreenHook = (): UseHomeScreenHookResponse => {
-  const [state, setState] = useState<HomeScreenState>({ 
-    tweets: [],
-    loading: true
-  });
+  const { state: globalState, dispatch } = useContext(TweetsContext);
+
+  const setTweetStorage = (tweets: Tweet[]): void => {
+     dispatch({
+      type: 'UPDATE_TWEETS',
+      payload: {
+        tweets: tweets,
+        loading: false
+      }
+    });
+  };
 
   const onMount = async (): Promise<void> => {
     try {
-      const tweets = await getAllTweets();
+      // Check Cache
+      const cacheResponse = Cache().setTweetsFromStorage(setTweetStorage);
+      if (cacheResponse) return;
 
-      setState({
-        tweets: tweets,
-        loading: false
-      });
+      //If cache is empty, pull data
+      const tweets = await API().fetchTweets();
+
+      // Store to cache
+      Cache().setTweets(tweets, setTweetStorage);
+
     } catch (error) {
       console.log('Error: ', error);
     };
@@ -26,7 +41,8 @@ const useHomeScreenHook = (): UseHomeScreenHookResponse => {
   }, []);
 
   return {
-    state: state
+    //@ts-ignore
+    state: globalState
   };
 };
 
