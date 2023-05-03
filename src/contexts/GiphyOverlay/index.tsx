@@ -21,7 +21,7 @@ export enum GiphyOverlayActionType {
   TOGGLE_RESET = 'TOGGLE_RESET'
 };
 
-type ContextType = {
+export type ContextType = {
   state: GiphyOverlayProviderState;
   dispatch: Dispatch<ActionType>;
 };
