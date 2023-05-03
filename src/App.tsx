@@ -39,6 +39,14 @@ const App = () => {
       </Providers.Authenticated> 
   );
 
+  const RegisterScreenElement: React.ReactElement = (
+    <Providers.Authenticated>
+      <Public>
+        <Screens.Register />
+      </Public>
+    </Providers.Authenticated> 
+);
+
   return (
     <Router>
       <Routes>
@@ -53,6 +61,10 @@ const App = () => {
         <Route 
           path='/auth/login'
           element={LoginScreenElement}
+        />
+        <Route 
+          path='/auth/register'
+          element={RegisterScreenElement}
         />
       </Routes>
     </Router>
