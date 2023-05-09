@@ -1,8 +1,8 @@
-export interface RegisterProps {
+export interface RegisterFormProps {
   
 };
 
-export interface RegisterState {
+export interface RegisterFormState {
   firstName: string;
   lastName: string;
   email: string;
