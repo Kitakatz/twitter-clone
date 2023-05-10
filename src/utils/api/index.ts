@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Tweet, tweets as localTweets } from '../../data/tweets';
-import { APIResponse, AxiosGetFetchLikesResponse, AxiosGetFetchTweetParams, AxiosGetFetchTweetResponse, AxiosGetFetchTweetsResponse, AxiosPostAddLikeParams, AxiosPostAddReplyParams, AxiosPostAddReplyResponse } from './interface';
+import { APIResponse, AxiosGetFetchLikesResponse, AxiosGetFetchTweetParams, AxiosGetFetchTweetResponse, AxiosGetFetchTweetsResponse, AxiosPostAddLikeParams, AxiosPostAddReplyParams, AxiosPostAddReplyResponse, AxiosPostAddUserResponse, AxiosPostUserReplyParams } from './interface';
 
 const getAllTweets = async (): Promise<Tweet[]> => {
   return new Promise((resolve,reject) => {
@@ -75,7 +75,11 @@ const API = (): APIResponse  => {
     await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/unlike', { id: id });
   };
 
+  const addUser = async (user: AxiosPostUserReplyParams): Promise<any> => {
+    const response = await axios.post<any, AxiosPostAddUserResponse, AxiosPostUserReplyParams>('http://localhost:3001/addUser', user);
 
+    return response;
+  };
 
   return {
     fetchTweets: fetchTweets,
@@ -83,7 +87,8 @@ const API = (): APIResponse  => {
     addReply: addReply,
     fetchLikes: fetchLikes,
     like: like,
-    unlike: unlike
+    unlike: unlike,
+    addUser: addUser
   };
 };
 

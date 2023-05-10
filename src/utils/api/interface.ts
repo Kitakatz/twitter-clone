@@ -7,6 +7,7 @@ export interface APIResponse {
   fetchLikes: (id: string) => Promise<number>;
   like: (id: string) => Promise<void>;
   unlike: (id: string) => Promise<void>;
+  addUser: (user: AxiosPostUserReplyParams) => Promise<any>;
 };
 
 export interface AxiosGetFetchTweetsResponse {
@@ -59,4 +60,29 @@ export interface AxiosGetFetchLikesResponse {
 
 export interface AxiosPostAddLikeParams {
   id: string
+};
+
+export type AxiosPostAddUserResponse = AxiosPostAddUserSuccess | AxiosPostAddUserError;
+
+export interface AxiosPostAddUserSuccess {
+  data: {
+    message: string;
+  };
+};
+
+export interface AxiosPostAddUserError {
+  data: {
+    error: {
+      message: string;
+    };
+  };
+};
+
+export interface AxiosPostUserReplyParams {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  username: string;
+  password: string;
 };

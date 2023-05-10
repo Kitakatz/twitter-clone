@@ -7,5 +7,4 @@ export interface RegisterState {
   lastName: string;
   email: string;
   phone: string;
-  password: string;
 };
