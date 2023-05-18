@@ -27,6 +27,11 @@ const Register: React.FC<RegisterFormProps> = (): React.ReactElement => {
       <div className='form-register-button'>
         <Buttons.Large label='Register' onClick={utils.onSubmitHandler} disabled={utils.isFormDisabled(utils.state)} />
       </div>
+      { 
+        !utils.state.errorMessage
+        ? null
+        : <div className='form-register-error'>{ utils.state.errorMessage }</div>
+      }
     </div>
   );
 };

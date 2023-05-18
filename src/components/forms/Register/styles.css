@@ -35,3 +35,12 @@
   padding: 0px 80px;
   margin: 24px 0px;
 }
+
+.form-register-error {
+  box-sizing: border-box;
+  color: #FFF;
+  background-color: #f73e5d;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 0 20px 20px 20px;
+}

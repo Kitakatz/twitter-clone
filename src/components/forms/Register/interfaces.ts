@@ -9,4 +9,5 @@ export interface RegisterFormState {
   phone: string;
   username: string;
   password: string;
+  errorMessage: string;
 };
