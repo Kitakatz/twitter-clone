@@ -7,7 +7,7 @@ export interface APIResponse {
   fetchLikes: (id: string) => Promise<number>;
   like: (id: string) => Promise<void>;
   unlike: (id: string) => Promise<void>;
-  addUser: (user: AxiosPostUserReplyParams) => Promise<any>;
+  register: (user: AxiosPostUserReplyParams) => Promise<any>;
 };
 
 export interface AxiosGetFetchTweetsResponse {

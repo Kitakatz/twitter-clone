@@ -75,8 +75,8 @@ const API = (): APIResponse  => {
     await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/unlike', { id: id });
   };
 
-  const addUser = async (user: AxiosPostUserReplyParams): Promise<any> => {
-    const response = await axios.post<any, AxiosPostAddUserResponse, AxiosPostUserReplyParams>('http://localhost:3001/addUser', user);
+  const register = async (user: AxiosPostUserReplyParams): Promise<any> => {
+    const response = await axios.post<any, AxiosPostAddUserResponse, AxiosPostUserReplyParams>('http://localhost:3001/register', user);
 
     return response;
   };
@@ -88,7 +88,7 @@ const API = (): APIResponse  => {
     fetchLikes: fetchLikes,
     like: like,
     unlike: unlike,
-    addUser: addUser
+    register: register
   };
 };
 

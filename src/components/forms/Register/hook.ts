@@ -38,7 +38,7 @@ const useRegisterScreenHook = (): useRegisterScreenHookResponse => {
 
       validate.validateUser(user);
 
-      const response = await API().addUser(user);
+      const response = await API().register(user);
       if (response.data.error) throw new Error(response.data.error.message);
     } catch(error: any) {
       setState(prevState => ({ ...prevState , errorMessage: error.message }));
@@ -54,7 +54,6 @@ const useRegisterScreenHook = (): useRegisterScreenHookResponse => {
       state.username && 
       state.password 
       ) return false;
-
     return true;
   };
 
