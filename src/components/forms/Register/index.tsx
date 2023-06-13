@@ -15,7 +15,7 @@ const Register: React.FC<RegisterFormProps> = (): React.ReactElement => {
 
   return (
     <div className='form-register'>
-      <h1 className='form-register-title'>Create your account</h1>
+      <h2 className='form-register-title'>Create your account</h2>
       <div className="form-register-inputs">
         <input type='text' name='firstName' placeholder='First Name' onChange={utils.onChangeHandler} value={utils.state.firstName} className='form-register-input' />
         <input type='text' name='lastName' placeholder='Last Name' onChange={utils.onChangeHandler} value={utils.state.lastName} className='form-register-input' />

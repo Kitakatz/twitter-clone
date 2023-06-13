@@ -166,7 +166,7 @@ const Sanitize = (): SanitizeResponse => {
     email: email, 
     firstName: firstName,
     lastName: lastName
-  }
+  };
 };
 
 export {

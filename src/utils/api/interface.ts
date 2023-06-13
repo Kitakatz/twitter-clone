@@ -8,6 +8,7 @@ export interface APIResponse {
   like: (id: string) => Promise<void>;
   unlike: (id: string) => Promise<void>;
   register: (user: AxiosPostUserReplyParams) => Promise<any>;
+  login: (user: AxiosPostLoginParams) => Promise<any>;
 };
 
 export interface AxiosGetFetchTweetsResponse {
@@ -83,6 +84,52 @@ export interface AxiosPostUserReplyParams {
   lastName: string;
   email: string;
   phone: string;
+  username: string;
+  password: string;
+};
+
+export type AxiosPostRegisterResponse = AxiosPostRegisterSuccess | AxiosPostRegisterError;
+
+export interface AxiosPostRegisterSuccess {
+  data: {
+    message: string;
+  };
+};
+
+export interface AxiosPostRegisterError {
+  data: {
+    error: {
+      message: string;
+    };
+  };
+};
+
+export interface AxiosPostRegisterParams {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  username: string;
+  password: string;
+};
+
+export type AxiosPostLoginResponse = AxiosPostLoginSuccess | AxiosPostLoginError;
+
+export interface AxiosPostLoginSuccess {
+  data: {
+    message: string;
+  };
+};
+
+export interface AxiosPostLoginError {
+  data: {
+    error: {
+      message: string;
+    };
+  };
+};
+
+export interface AxiosPostLoginParams {
   username: string;
   password: string;
 };

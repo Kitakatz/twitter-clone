@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Tweet, tweets as localTweets } from '../../data/tweets';
-import { APIResponse, AxiosGetFetchLikesResponse, AxiosGetFetchTweetParams, AxiosGetFetchTweetResponse, AxiosGetFetchTweetsResponse, AxiosPostAddLikeParams, AxiosPostAddReplyParams, AxiosPostAddReplyResponse, AxiosPostAddUserResponse, AxiosPostUserReplyParams } from './interface';
+import { APIResponse, AxiosGetFetchLikesResponse, AxiosGetFetchTweetParams, AxiosGetFetchTweetResponse, AxiosGetFetchTweetsResponse, AxiosPostAddLikeParams, AxiosPostAddReplyParams, AxiosPostAddReplyResponse, AxiosPostAddUserResponse, AxiosPostLoginParams, AxiosPostLoginResponse, AxiosPostRegisterParams, AxiosPostRegisterResponse, AxiosPostUserReplyParams } from './interface';
 
 const getAllTweets = async (): Promise<Tweet[]> => {
   return new Promise((resolve,reject) => {
@@ -75,8 +75,14 @@ const API = (): APIResponse  => {
     await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/unlike', { id: id });
   };
 
-  const register = async (user: AxiosPostUserReplyParams): Promise<any> => {
-    const response = await axios.post<any, AxiosPostAddUserResponse, AxiosPostUserReplyParams>('http://localhost:3001/register', user);
+  const register = async (user: AxiosPostRegisterParams): Promise<any> => {
+    const response = await axios.post<any, AxiosPostRegisterResponse, AxiosPostRegisterParams>('http://localhost:3001/api/auth/register', user);
+
+    return response;
+  };
+
+  const login = async (user: AxiosPostLoginParams): Promise<any> => {
+    const response = await axios.post<any, AxiosPostLoginResponse, AxiosPostLoginParams>('http://localhost:3001/api/auth/login', user);
 
     return response;
   };
@@ -88,7 +94,8 @@ const API = (): APIResponse  => {
     fetchLikes: fetchLikes,
     like: like,
     unlike: unlike,
-    register: register
+    register: register,
+    login: login
   };
 };
 

@@ -45,7 +45,7 @@ const App = () => {
         <Screens.Register />
       </Public>
     </Providers.Authenticated> 
-);
+  );
 
   return (
     <Router>
