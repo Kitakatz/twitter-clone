@@ -1,7 +1,7 @@
 import { Tweet } from '../../data/tweets';
 
 export interface APIResponse {
-  fetchTweets: () => Promise<Tweet[]>;
+  fetchTweets: (accessToken: string) => Promise<Tweet[]>;
   fetchTweetById: (id: string) => Promise<Tweet>;
   addReply: (reply: AxiosPostAddReplyParams) => Promise<any>;
   fetchLikes: (id: string) => Promise<number>;

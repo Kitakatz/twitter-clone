@@ -10,24 +10,24 @@ import './styles.css';
 const DetailTweets: React.FC<DetailTweetsProps> = (props): React.ReactElement | null => {
   const { state } = useContext(TweetsContext);
 
-  const renderPreview = (mediaType: string, mediaURL: string): React.ReactElement | null => {
+  const renderPreview = (mediaType: string, mediaUrl: string): React.ReactElement | null => {
     if (mediaType === 'image/gif') return (
       <div className='image-preview'>
-        <img src={mediaURL} style={{ width: '100%' }} />
+        <img src={mediaUrl} style={{ width: '100%' }} />
       </div>
     );
 
 
     if ( mediaType === 'image/jpeg' ) return (
       <div className='image-preview'>
-        <img src={mediaURL} style={{ width: '100%' }} />
+        <img src={mediaUrl} style={{ width: '100%' }} />
       </div>
     );
 
     if ( mediaType === 'video/mp4' ) return (
       <div className='image-preview'>
         <video controls>
-          <source src={mediaURL} type="video/mp4" />
+          <source src={mediaUrl} type="video/mp4" />
           <source src="movie.ogg" type="video/ogg" />
           Your browser does not support the video tag.
         </video>
@@ -39,10 +39,10 @@ const DetailTweets: React.FC<DetailTweetsProps> = (props): React.ReactElement | 
 
 
   const renderItems = (): React.ReactElement[] => {
-    const items = props.items.map((item, index: number) => {
+    const items = props.items.map((item: any, index: number) => {
       return (
-        <Animations.FadeInFromTop index={index}>
-          <div key={item.id} className="tweet">
+        <Animations.FadeInFromTop key={item.id} index={index}>
+          <div className="tweet">
             <Layout.Row>
               <Layout.Column width={48} marginRight={16}>
                 <Cards.Avatar />
@@ -58,7 +58,7 @@ const DetailTweets: React.FC<DetailTweetsProps> = (props): React.ReactElement | 
                   Replying to <a href=''>@AWSAmplify</a>
                 </div>
                 <div className="paragraph">{item.tweet}</div>
-                {renderPreview(item.mediaType, item.mediaURL)}
+                {renderPreview(item.mediaType, item.mediaUrl)}
               </Layout.Column>
             </Layout.Row>
           </div>

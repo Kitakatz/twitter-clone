@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TweetsContext } from '../../../contexts/Tweets';
-import { Tweet } from '../../../data/tweets';
 import { DetailState, RouterParams, UseDetailScreenHookResponse } from './interfaces';
 import { API } from '../../../utils/api';
 import Cache from '../../../utils/cache';

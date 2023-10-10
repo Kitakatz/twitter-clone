@@ -33,8 +33,13 @@ const getTweetById = async ( tweetID: string | undefined, tweets: Tweet[]): Prom
 };
 
 const API = (): APIResponse  => {
-  const fetchTweets = async (): Promise<Tweet[]> => {
-    const response = await axios.get<any, AxiosGetFetchTweetsResponse, any>('http://localhost:3001/fetchTweets');
+  const fetchTweets = async (accessToken: string): Promise<Tweet[]> => {
+    const response = await axios.get<any, AxiosGetFetchTweetsResponse, any>('http://localhost:3001/api/tweets/fetchTweets', {
+      withCredentials: true,
+      params: {
+        accessToken: accessToken
+      }
+    });
     const tweets: Tweet[] = response.data.tweets;
     return tweets;
   };
@@ -43,7 +48,7 @@ const API = (): APIResponse  => {
     const params: AxiosGetFetchTweetParams = {
       id: id
     };
-    const response = await axios.get<any, AxiosGetFetchTweetResponse, any>('http://localhost:3001/fetchTweetById', {
+    const response = await axios.get<any, AxiosGetFetchTweetResponse, any>('http://localhost:3001/api/tweets/fetchTweetById', {
       params: params
     });
     const tweet: Tweet = response.data.tweet;
@@ -51,7 +56,7 @@ const API = (): APIResponse  => {
   };
 
   const addReply = async (reply: AxiosPostAddReplyParams): Promise<any> => {
-    const response = await axios.post<any, AxiosPostAddReplyResponse , AxiosPostAddReplyParams>('http://localhost:3001/addReply', reply);
+    const response = await axios.post<any, AxiosPostAddReplyResponse , AxiosPostAddReplyParams>('http://localhost:3001/api/replies/addReply', reply);
 
     return response;
   };
@@ -60,7 +65,7 @@ const API = (): APIResponse  => {
     const params: AxiosGetFetchTweetParams = {
       id: id
     };
-    const response = await axios.get<any, AxiosGetFetchLikesResponse, any>('http://localhost:3001/fetchLikes', {
+    const response = await axios.get<any, AxiosGetFetchLikesResponse, any>('http://localhost:3001/api/likes/fetchLikes', {
       params: params
     });
     const likes: number = response.data.likes;
@@ -68,11 +73,11 @@ const API = (): APIResponse  => {
   };
 
   const like = async (id: string): Promise<void> => {
-    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/like', { id: id });
+    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/api/likes/like', { id: id });
   };
 
   const unlike = async (id: string): Promise<void> => {
-    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/unlike', { id: id });
+    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/api/likes/unlike', { id: id });
   };
 
   const register = async (user: AxiosPostRegisterParams): Promise<any> => {
@@ -82,7 +87,7 @@ const API = (): APIResponse  => {
   };
 
   const login = async (user: AxiosPostLoginParams): Promise<any> => {
-    const response = await axios.post<any, AxiosPostLoginResponse, AxiosPostLoginParams>('http://localhost:3001/api/auth/login', user);
+    const response = await axios.post<any, AxiosPostLoginResponse, AxiosPostLoginParams>('http://localhost:3001/api/auth/login', user, { withCredentials: true });
 
     return response;
   };

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Screens from './components/screens';
 import Providers from './contexts';
 import Private from './components/auth/Private';
 import Public from './components/auth/Public';
+// import { AuthenticatedContext } from './contexts/Authenticated';
 
 const App = () => {
+  // const [timer, setTimer] = useState<number>(20);
+  // const { dispatch } = useContext(AuthenticatedContext);
+
   const HomeScreenElement: React.ReactElement = (
     <Private>
       <Providers.ReplyOverlayProvider>   
@@ -47,6 +51,30 @@ const App = () => {
     </Providers.Authenticated> 
   );
 
+  const VerifyScreenElement: React.ReactElement = (
+    <Providers.Authenticated>
+      <Public>
+        <Screens.Verify />
+      </Public>
+    </Providers.Authenticated> 
+  );
+
+  // useEffect(() => {
+  //   if (timer === 0) {
+  //     dispatch({ type: 'LOGOUT' });
+  //   };
+
+  //   const ticker = setTimeout(() => {
+  //     setTimer(timer - 1);
+  //   }, 1000);
+
+  //   return () => {
+  //     clearTimeout(ticker);
+  //   };
+  // }, [timer]);
+
+  // console.log('timer: ', timer);
+
   return (
     <Router>
       <Routes>
@@ -65,6 +93,10 @@ const App = () => {
         <Route 
           path='/auth/register'
           element={RegisterScreenElement}
+        />
+           <Route 
+          path='/auth/verify'
+          element={VerifyScreenElement}
         />
       </Routes>
     </Router>

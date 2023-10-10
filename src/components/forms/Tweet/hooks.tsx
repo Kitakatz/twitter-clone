@@ -1,33 +1,20 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import Cache from '../../../utils/cache';
-import { ReplyFormState } from './interfaces';
+import { TweetFormState } from './interfaces';
 import { v4 as uuid } from 'uuid';
 import { API } from '../../../utils/api';
-import { GiphyOverlayActionType, GiphyOverlayContext, ContextType } from '../../../contexts/GiphyOverlay';
-import { ReplyOverlayContext, ReplyOverlayProviderState } from '../../../contexts/ReplyOverlay';
+import { GiphyOverlayActionType, GiphyOverlayContext } from '../../../contexts/GiphyOverlay';
+import { ReplyOverlayContext } from '../../../contexts/ReplyOverlay';
 import Icons from '../../icons';
 import { TweetsContext } from '../../../contexts/Tweets';
 import { Tweet } from '../../../data/tweets';
 
-interface ReplyFormHookResponse {
-  onChangeHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeFileHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickFileHandler: () => void;
-  onClickGifHandler: () => void;
-  renderPreview: () => React.ReactElement | null;
-  onSubmitHandler: () => Promise<void>;
-  replyOverlayState: ReplyOverlayProviderState;
-  state: ReplyFormState;
-  giphyOverlayContext: ContextType;
-  imageFileRef: React.RefObject<HTMLInputElement>;
-};
-
-const useReplyFormHook = (): ReplyFormHookResponse => {
+const useTweetFormHook = () => {
   const { state: replyOverlayState, dispatch: replyOverlayDispatch } = useContext(ReplyOverlayContext);
   const { state: tweetState, dispatch } = useContext(TweetsContext);
-  const giphyOverlayContext = useContext(GiphyOverlayContext);  
+  const giphyOverlayContext = useContext(GiphyOverlayContext);
   const imageFileRef = useRef<HTMLInputElement>(null);
-  const [state, setState] = useState<ReplyFormState>({
+  const [state, setState] = useState<TweetFormState>({
     value: '',
     file: null,
     previewUrl: ''
@@ -62,10 +49,13 @@ const useReplyFormHook = (): ReplyFormHookResponse => {
   };
 
   const onClickGifHandler = (): void => {
-    giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE });
+    
+
+    // giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE });
   };
 
   const onClickClosePreview = (): void => {
+    //did we still need a plugin in estint
     if (!imageFileRef.current) return;
 
     setState(prevState => ({
@@ -109,7 +99,7 @@ const useReplyFormHook = (): ReplyFormHookResponse => {
   };
 
   const setTweetStorage = (tweets: Tweet[]): void => {
-  dispatch({ type: 'UPDATE_TWEETS', payload: { tweets: tweets, isLoading: false } });
+    dispatch({ type: 'UPDATE_TWEETS', payload: { tweets: tweets, isLoading: false } });
   };
 
   const onSubmitHandler = async ( ): Promise<void> => {
@@ -166,20 +156,19 @@ const useReplyFormHook = (): ReplyFormHookResponse => {
       imageFileRef.current.value = '';
     };
   }, [giphyOverlayContext.state.gif]);
-
-
+  
   return {
     renderPreview: renderPreview,
-    onChangeFileHandler: onChangeFileHandler,
     onChangeHandler: onChangeHandler,
+    onChangeFileHandler: onChangeFileHandler,
     onClickFileHandler: onClickFileHandler,
     onClickGifHandler: onClickGifHandler,
     onSubmitHandler: onSubmitHandler,
-    replyOverlayState: replyOverlayState,
     state: state,
-    giphyOverlayContext: giphyOverlayContext,
     imageFileRef: imageFileRef,
+    giphyOverlayContext: giphyOverlayContext
   };
 };
 
-export default useReplyFormHook;
+export default useTweetFormHook;
+

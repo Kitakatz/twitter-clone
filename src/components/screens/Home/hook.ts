@@ -4,6 +4,7 @@ import { TweetsContext } from '../../../contexts/Tweets';
 import { API } from '../../../utils/api';
 import Cache from '../../../utils/cache';
 import { Tweet } from '../../../data/tweets';
+import Cookies from 'js-cookie';
 
 
 const useHomeScreenHook = (): UseHomeScreenHookResponse => {
@@ -25,8 +26,12 @@ const useHomeScreenHook = (): UseHomeScreenHookResponse => {
       const cacheResponse = Cache().setTweetsFromStorage(setTweetStorage);
       if (cacheResponse) return;
 
+      //New* Check for sessionID
+
+      //Send sessionId but session id is on mySQL and and made on api?
+      const accessToken: string = Cookies.get('accessToken') || '';
       //If cache is empty, pull data
-      const tweets = await API().fetchTweets();
+      const tweets = await API().fetchTweets(accessToken);
 
       // Store to cache
       Cache().setTweets(tweets, setTweetStorage);

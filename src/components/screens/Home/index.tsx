@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Containers from '../../containers';
 import Cards from '../../cards';
 import Overlays from '../../overlays';
@@ -10,6 +10,8 @@ import { AuthenticatedContext } from '../../../contexts/Authenticated';
 import useWindowSize from '../../../hooks/useWindowDimensions';
 import Layout from '../../layout';
 import Navigation from '../../navigation';
+import Forms from '../../forms';
+import getCurrentPosition from '../../../utils/getCurrentPosition';
 
 const Home: React.FC<HomeScreenProps> = (props): React.ReactElement => {
   const { state } = useHomeScreenHook();
@@ -23,13 +25,17 @@ const Home: React.FC<HomeScreenProps> = (props): React.ReactElement => {
   const renderItems = (): React.ReactElement[] => {
     const items = state.tweets.map((tweet: Tweet, index: number) => {
       return (
-        <Animations.FadeInFromTop index={index}>
+        <Animations.FadeInFromTop key={tweet.id} index={index}>
           <Cards.Feed key={tweet.id} tweet={tweet} />
         </Animations.FadeInFromTop>
       );
     });
     return items;
   };
+
+  useEffect(() => {
+    getCurrentPosition();
+  }, []);
 
   return (
     <div data-testid='home-screen' className="App" style={{ height: windowSize.height }}>
@@ -41,6 +47,7 @@ const Home: React.FC<HomeScreenProps> = (props): React.ReactElement => {
             <Navigation />
           </Layout.Column>
           <Layout.Column overflowY='scroll' height={windowSize.height}>
+            <Forms.Tweet />
             {!state.loading ? (
               <div data-testid='tweets'>
                 {renderItems()}
