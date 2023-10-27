@@ -5,6 +5,7 @@ import Screens from './components/screens';
 import Providers from './contexts';
 import Private from './components/auth/Private';
 import Public from './components/auth/Public';
+import TokenManager from './utils/TokenManager';
 // import { AuthenticatedContext } from './contexts/Authenticated';
 
 const App = () => {
@@ -75,6 +76,7 @@ const App = () => {
 
   // console.log('timer: ', timer);
 
+  TokenManager().isTokenValid('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE2OTc3NDEyNzI3MDV9.gvH_Eg2BlbLFhwZEMDsXa7gt40lI25BCUwLdwniSzfo');
   return (
     <Router>
       <Routes>

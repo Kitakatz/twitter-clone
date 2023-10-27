@@ -4,7 +4,7 @@ import { TweetsContext } from '../../../contexts/Tweets';
 import { API } from '../../../utils/api';
 import Cache from '../../../utils/cache';
 import { Tweet } from '../../../data/tweets';
-import Cookies from 'js-cookie';
+import TokenManager from '../../../utils/TokenManager';
 
 
 const useHomeScreenHook = (): UseHomeScreenHookResponse => {
@@ -22,19 +22,22 @@ const useHomeScreenHook = (): UseHomeScreenHookResponse => {
 
   const onMount = async (): Promise<void> => {
     try {
-      // Check Cache
       const cacheResponse = Cache().setTweetsFromStorage(setTweetStorage);
       if (cacheResponse) return;
 
-      //New* Check for sessionID
+      const accessToken = TokenManager().getJwtToken();
+      const isTokenValid = TokenManager().isTokenValid(accessToken);
+      
+      //reroute login screen 1 liner
+      if (!isTokenValid) throw new Error('Session has expired.');
 
-      //Send sessionId but session id is on mySQL and and made on api?
-      const accessToken: string = Cookies.get('accessToken') || '';
-      //If cache is empty, pull data
       const tweets = await API().fetchTweets(accessToken);
 
-      // Store to cache
       Cache().setTweets(tweets, setTweetStorage);
+
+      window.addEventListener('storage', (event) => {
+        // if (event.key === 'logout') clientLogout();
+      });
 
     } catch (error) {
       console.log('Error: ', error);

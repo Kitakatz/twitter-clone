@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Tweet, tweets as localTweets } from '../../data/tweets';
 import { APIResponse, AxiosGetFetchLikesResponse, AxiosGetFetchTweetParams, AxiosGetFetchTweetResponse, AxiosGetFetchTweetsResponse, AxiosPostAddLikeParams, AxiosPostAddReplyParams, AxiosPostAddReplyResponse, AxiosPostAddUserResponse, AxiosPostLoginParams, AxiosPostLoginResponse, AxiosPostRegisterParams, AxiosPostRegisterResponse, AxiosPostUserReplyParams } from './interface';
+import TokenManager from '../TokenManager';
 
 const getAllTweets = async (): Promise<Tweet[]> => {
   return new Promise((resolve,reject) => {
