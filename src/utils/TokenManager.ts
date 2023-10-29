@@ -11,11 +11,11 @@ interface TokenManagerResponse {
 
 const TokenManager = (): TokenManagerResponse => {
   const getJwtToken = () => {
-    return sessionStorage.getItem('jwt');
+    return sessionStorage.getItem('accessToken');
   };
 
   const setJwtToken = (token: string) => {
-    sessionStorage.setItem('jwt', token);
+    sessionStorage.setItem('accessToken', token);
   };
 
   const getRefreshToken = () => {

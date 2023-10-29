@@ -2,10 +2,11 @@ import { useContext, useState } from 'react';
 import { LoginStateFormProps } from './interfaces';
 import { Sanitize, Validate } from './validate';
 import Utils from './utils';
-// import { API } from '../../../utils/api';
 import { AuthenticatedContext } from '../../../contexts/Authenticated';
 import axios from 'axios';
-// import Cookies from 'js-cookie';
+import { API } from '../../../utils/api';
+import Cookies from 'js-cookie';
+import TokenManager from '../../../utils/TokenManager';
 
 interface UseLoginScreenHookResponse {
   onChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -35,26 +36,17 @@ const useLoginScreenHook = (): UseLoginScreenHookResponse => {
 
   const onSubmitHandler = async (): Promise<void> => {
     try {
-      const token = '__CLIENT_TOKEN__';
-      const response = await axios.get('http://localhost:3001/api/event-test', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      console.log('response: ', response);
+      const user = utils.createUserEntity(state);
 
+      validate.validateUser(user);
 
-      // const user = utils.createUserEntity(state);
+      const response = await API().login(user);
+      if (response.data.error) throw new Error(response.data.error.message);
 
-      // validate.validateUser(user);
+      TokenManager().setJwtToken(response.data.authPayload.accessToken);
+      TokenManager().setRefreshToken(response.data.authPayload.refreshToken);
 
-      // const response = await API().login(user);
-      // if (response.data.error) throw new Error(response.data.error.message);
-
-      // Cookies.set('accessToken', response.data.authPayload.accessToken);
-      // Cookies.set('refreshToken', response.data.authPayload.refreshToken);
-
-      // dispatch({type:'LOGIN'});
+      dispatch({type:'LOGIN'});
     } catch(error: any) {
       setState(prevState => ({ ...prevState , errorMessage: error.message }));
       console.log(error);

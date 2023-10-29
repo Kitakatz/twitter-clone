@@ -34,11 +34,6 @@ const useHomeScreenHook = (): UseHomeScreenHookResponse => {
       const tweets = await API().fetchTweets(accessToken);
 
       Cache().setTweets(tweets, setTweetStorage);
-
-      window.addEventListener('storage', (event) => {
-        // if (event.key === 'logout') clientLogout();
-      });
-
     } catch (error) {
       console.log('Error: ', error);
     };

@@ -76,7 +76,6 @@ const App = () => {
 
   // console.log('timer: ', timer);
 
-  TokenManager().isTokenValid('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE2OTc3NDEyNzI3MDV9.gvH_Eg2BlbLFhwZEMDsXa7gt40lI25BCUwLdwniSzfo');
   return (
     <Router>
       <Routes>
