@@ -1,4 +1,5 @@
 import { AuthenticatedState, ActionType } from '.';
+import TokenManager from '../../utils/TokenManager';
 
 export const initialState: AuthenticatedState = {
   isLoggedIn: false
@@ -8,7 +9,11 @@ const reducer = (state: AuthenticatedState, action: ActionType) => {
   switch (action.type) {
     case 'LOGIN':
       const _isLoggedIn = (): AuthenticatedState => {
+        // set cache 
         localStorage.setItem('isLoggedIn', 'true');
+        TokenManager().setAccessToken(action.payload.accessToken);
+        TokenManager().setRefreshToken(action.payload.refreshToken);
+
         return {
           isLoggedIn: true
         };
@@ -18,7 +23,11 @@ const reducer = (state: AuthenticatedState, action: ActionType) => {
 
     case 'LOGOUT':
       const _isLoggedOut = (): AuthenticatedState => {
-        localStorage.removeItem('isLoggedIn');
+        // sanitize cache 
+        window.localStorage.setItem('isLoggedIn', 'false');
+        TokenManager().removeAccessToken();
+        TokenManager().removeRefreshToken();
+
         return {
           isLoggedIn: false
         };

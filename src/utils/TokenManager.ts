@@ -1,20 +1,26 @@
 import decodeJWT, {JwtPayload} from 'jwt-decode';
 
 interface TokenManagerResponse {
-  getJwtToken: () => any;
-  setJwtToken: (token: string) => any;
+  getAccessToken: () => any;
+  setAccessToken: (token: string) => any;
+  removeAccessToken: () => void;
   getRefreshToken: () => any;
   setRefreshToken: (token: string) => any;
+  removeRefreshToken: () => void;
   isTokenValid: (token: string) => any;
 };
 
 const TokenManager = (): TokenManagerResponse => {
-  const getJwtToken = () => {
+  const getAccessToken = () => {
     return sessionStorage.getItem('accessToken');
   };
 
-  const setJwtToken = (token: string) => {
+  const setAccessToken = (token: string) => {
     sessionStorage.setItem('accessToken', token);
+  };
+
+  const removeAccessToken = () => {
+    sessionStorage.removeItem('accessToken');
   };
 
   const getRefreshToken = () => {
@@ -23,6 +29,10 @@ const TokenManager = (): TokenManagerResponse => {
 
   const setRefreshToken = (token: string) => {
     sessionStorage.setItem('refreshToken', token);
+  };
+
+  const removeRefreshToken = () => {
+    sessionStorage.removeItem('refreshToken');
   };
 
   const isTokenValid = (token: string) => {
@@ -37,10 +47,12 @@ const TokenManager = (): TokenManagerResponse => {
   };
 
   return {
-    getJwtToken: getJwtToken,
-    setJwtToken: setJwtToken,
+    getAccessToken: getAccessToken,
+    setAccessToken: setAccessToken,
+    removeAccessToken: removeAccessToken,
     getRefreshToken: getRefreshToken,
     setRefreshToken: setRefreshToken,
+    removeRefreshToken: removeRefreshToken,
     isTokenValid: isTokenValid
   };
 };

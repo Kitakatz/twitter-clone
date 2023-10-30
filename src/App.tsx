@@ -3,20 +3,25 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Screens from './components/screens';
 import Providers from './contexts';
+import GlobalProviders from './components/providers';
 import Private from './components/auth/Private';
 import Public from './components/auth/Public';
-import TokenManager from './utils/TokenManager';
 // import { AuthenticatedContext } from './contexts/Authenticated';
 
 const App = () => {
   // const [timer, setTimer] = useState<number>(20);
   // const { dispatch } = useContext(AuthenticatedContext);
 
+  const logout = (event: any) => {
+    
+  };
+
   const HomeScreenElement: React.ReactElement = (
     <Private>
       <Providers.ReplyOverlayProvider>   
         <Providers.GiphyOverlay>
           <Providers.TweetsProvider>
+            <button onClick={logout}>logout</button>
             <Screens.Home />
           </Providers.TweetsProvider>
         </Providers.GiphyOverlay>
@@ -77,30 +82,32 @@ const App = () => {
   // console.log('timer: ', timer);
 
   return (
-    <Router>
-      <Routes>
-        <Route 
-          path='/home'
-          element={HomeScreenElement}
-        />
-        <Route 
-          path='/home/detail/:id'
-          element={DetailScreenElement}
-        />
-        <Route 
-          path='/auth/login'
-          element={LoginScreenElement}
-        />
-        <Route 
-          path='/auth/register'
-          element={RegisterScreenElement}
-        />
-           <Route 
-          path='/auth/verify'
-          element={VerifyScreenElement}
-        />
-      </Routes>
-    </Router>
+    <GlobalProviders.Storage>
+      <Router>
+        <Routes>
+          <Route 
+            path='/home'
+            element={HomeScreenElement}
+            />
+          <Route 
+            path='/home/detail/:id'
+            element={DetailScreenElement}
+            />
+          <Route 
+            path='/auth/login'
+            element={LoginScreenElement}
+            />
+          <Route 
+            path='/auth/register'
+            element={RegisterScreenElement}
+            />
+            <Route 
+            path='/auth/verify'
+            element={VerifyScreenElement}
+            />
+        </Routes>
+      </Router>
+    </GlobalProviders.Storage>
   );
 };
 
