@@ -1,6 +1,5 @@
 import decodeJWT, {JwtPayload} from 'jwt-decode';
 
-
 interface TokenManagerResponse {
   getJwtToken: () => any;
   setJwtToken: (token: string) => any;

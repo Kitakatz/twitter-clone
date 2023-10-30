@@ -5,10 +5,12 @@ import { API } from '../../../utils/api';
 import Cache from '../../../utils/cache';
 import { Tweet } from '../../../data/tweets';
 import TokenManager from '../../../utils/TokenManager';
+import { AuthenticatedContext } from '../../../contexts/Authenticated';
 
 
 const useHomeScreenHook = (): UseHomeScreenHookResponse => {
   const { state: globalState, dispatch } = useContext(TweetsContext);
+  const { dispatch: authenticatedDispatch } = useContext(AuthenticatedContext);
 
   const setTweetStorage = (tweets: Tweet[]): void => {
      dispatch({
@@ -28,8 +30,10 @@ const useHomeScreenHook = (): UseHomeScreenHookResponse => {
       const accessToken = TokenManager().getJwtToken();
       const isTokenValid = TokenManager().isTokenValid(accessToken);
       
-      //reroute login screen 1 liner
-      if (!isTokenValid) throw new Error('Session has expired.');
+      if (!isTokenValid) {
+        authenticatedDispatch({type: 'LOGOUT'})
+        throw new Error('Session has expired.')
+      };
 
       const tweets = await API().fetchTweets(accessToken);
 

@@ -3,9 +3,7 @@ import { LoginStateFormProps } from './interfaces';
 import { Sanitize, Validate } from './validate';
 import Utils from './utils';
 import { AuthenticatedContext } from '../../../contexts/Authenticated';
-import axios from 'axios';
 import { API } from '../../../utils/api';
-import Cookies from 'js-cookie';
 import TokenManager from '../../../utils/TokenManager';
 
 interface UseLoginScreenHookResponse {
@@ -38,7 +36,7 @@ const useLoginScreenHook = (): UseLoginScreenHookResponse => {
     try {
       const user = utils.createUserEntity(state);
 
-      validate.validateUser(user);
+      // validate.validateUser(user);
 
       const response = await API().login(user);
       if (response.data.error) throw new Error(response.data.error.message);
