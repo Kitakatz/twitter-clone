@@ -41,7 +41,7 @@ const useLoginScreenHook = (): UseLoginScreenHookResponse => {
       const response = await API().login(user);
       if (response.data.error) throw new Error(response.data.error.message);
 
-      TokenManager().setJwtToken(response.data.authPayload.accessToken);
+      TokenManager().setAccessToken(response.data.authPayload.accessToken);
       TokenManager().setRefreshToken(response.data.authPayload.refreshToken);
 
       dispatch({type:'LOGIN'});

@@ -27,7 +27,7 @@ const useHomeScreenHook = (): UseHomeScreenHookResponse => {
       const cacheResponse = Cache().setTweetsFromStorage(setTweetStorage);
       if (cacheResponse) return;
 
-      const accessToken = TokenManager().getJwtToken();
+      const accessToken = TokenManager().getAccessToken();
       const isTokenValid = TokenManager().isTokenValid(accessToken);
       
       if (!isTokenValid) {
