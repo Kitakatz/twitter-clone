@@ -1,20 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Screens from './components/screens';
 import Providers from './contexts';
 import GlobalProviders from './components/providers';
 import Protected from './components/auth/Protected';
-// import { AuthenticatedContext } from './contexts/Authenticated';
 
 const App = () => {
   // const [timer, setTimer] = useState<number>(20);
-  // const { dispatch } = useContext(AuthenticatedContext);
-
-  const logout = (event: any) => {
-    
-  };
-
   const HomeScreenElement: React.ReactElement = (
     <Providers.Authenticated>
       <GlobalProviders.Storage>
@@ -22,7 +15,6 @@ const App = () => {
           <Providers.ReplyOverlayProvider>   
             <Providers.GiphyOverlay>
               <Providers.TweetsProvider>
-                <button onClick={logout}>logout</button>
                 <Screens.Home />
               </Providers.TweetsProvider>
             </Providers.GiphyOverlay>
@@ -34,7 +26,7 @@ const App = () => {
 
   const DetailScreenElement: React.ReactElement = (
     <GlobalProviders.Storage>
-      <Protected>
+      {/* <Protected> */}
         <Providers.ReplyOverlayProvider>
           <Providers.GiphyOverlay>
             <Providers.TweetsProvider>
@@ -42,7 +34,7 @@ const App = () => {
             </Providers.TweetsProvider>
           </Providers.GiphyOverlay>
         </Providers.ReplyOverlayProvider>
-      </Protected>
+      {/* </Protected> */}
     </GlobalProviders.Storage>
   );
 
