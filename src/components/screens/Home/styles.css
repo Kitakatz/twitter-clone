@@ -1,0 +1,22 @@
+.main-feed-container {
+  width: 600px;
+  border-left: 1px solid rgb(239, 243, 244); 
+  border-right: 1px solid rgb(239, 243, 244); 
+}
+
+.main-feed-divider {
+  border-top: 1px solid rgb(239, 243, 244); 
+}
+
+.navigation-container {
+  position: relative;
+}
+
+.navigation-logout-button {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  padding: 0 12px; 
+}

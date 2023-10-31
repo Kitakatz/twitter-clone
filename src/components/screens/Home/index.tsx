@@ -12,6 +12,8 @@ import Layout from '../../layout';
 import Navigation from '../../navigation';
 import Forms from '../../forms';
 import getCurrentPosition from '../../../utils/getCurrentPosition';
+import Buttons from '../../buttons';
+import './styles.css';
 
 const Home: React.FC<HomeScreenProps> = (props): React.ReactElement => {
   const { state } = useHomeScreenHook();
@@ -27,6 +29,7 @@ const Home: React.FC<HomeScreenProps> = (props): React.ReactElement => {
       return (
         <Animations.FadeInFromTop key={tweet.id} index={index}>
           <Cards.Feed key={tweet.id} tweet={tweet} />
+          <div className='main-feed-divider'></div>
         </Animations.FadeInFromTop>
       );
     });
@@ -44,15 +47,24 @@ const Home: React.FC<HomeScreenProps> = (props): React.ReactElement => {
       <Containers.Home>
         <Layout.Row>
           <Layout.Column height={windowSize.height}>
-            <Navigation />
+            <div className='navigation-container' style={{ height: windowSize.height }}>
+              <Navigation />
+
+              <div className='navigation-logout-button'>
+                <Buttons.Logout label='Logout' onClick={logout} />
+              </div>
+            </div>
           </Layout.Column>
           <Layout.Column overflowY='scroll' height={windowSize.height}>
-            <Forms.Tweet />
-            {!state.loading ? (
-              <div data-testid='tweets'>
-                {renderItems()}
-              </div>
-            ) : 'Loading tweets...' }
+            <div className='main-feed-container' style={{ height: windowSize.height }}>
+              <Forms.Tweet />
+              <div className='main-feed-divider'></div>
+              {!state.loading ? (
+                <div data-testid='tweets'>
+                  {renderItems()}
+                </div>
+              ) : 'Loading tweets...' }
+            </div>
           </Layout.Column>
           <Layout.Column height={windowSize.height}>
             <div style={{ width: 350 }}></div>
