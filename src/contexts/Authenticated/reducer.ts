@@ -10,9 +10,9 @@ const reducer = (state: AuthenticatedState, action: ActionType) => {
     case 'LOGIN':
       const _isLoggedIn = (): AuthenticatedState => {
         // set cache 
-        localStorage.setItem('isLoggedIn', 'true');
         TokenManager().setAccessToken(action.payload.accessToken);
         TokenManager().setRefreshToken(action.payload.refreshToken);
+        localStorage.setItem('isLoggedIn', 'true');
 
         return {
           isLoggedIn: true
@@ -25,6 +25,7 @@ const reducer = (state: AuthenticatedState, action: ActionType) => {
       const _isLoggedOut = (): AuthenticatedState => {
         // sanitize cache 
         window.localStorage.setItem('isLoggedIn', 'false');
+        localStorage.removeItem('@tweets');
         TokenManager().removeAccessToken();
         TokenManager().removeRefreshToken();
 

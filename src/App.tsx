@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Screens from './components/screens';
 import Providers from './contexts';
 import GlobalProviders from './components/providers';
-import Private from './components/auth/Private';
-import Public from './components/auth/Public';
+import Protected from './components/auth/Protected';
 // import { AuthenticatedContext } from './contexts/Authenticated';
 
 const App = () => {
@@ -17,52 +16,64 @@ const App = () => {
   };
 
   const HomeScreenElement: React.ReactElement = (
-    <Private>
-      <Providers.ReplyOverlayProvider>   
-        <Providers.GiphyOverlay>
-          <Providers.TweetsProvider>
-            <button onClick={logout}>logout</button>
-            <Screens.Home />
-          </Providers.TweetsProvider>
-        </Providers.GiphyOverlay>
-      </Providers.ReplyOverlayProvider>
-    </Private>
+    <Providers.Authenticated>
+      <GlobalProviders.Storage>
+        <Protected>
+          <Providers.ReplyOverlayProvider>   
+            <Providers.GiphyOverlay>
+              <Providers.TweetsProvider>
+                <button onClick={logout}>logout</button>
+                <Screens.Home />
+              </Providers.TweetsProvider>
+            </Providers.GiphyOverlay>
+          </Providers.ReplyOverlayProvider>
+        </Protected>
+      </GlobalProviders.Storage>
+    </Providers.Authenticated>
   );
 
   const DetailScreenElement: React.ReactElement = (
-    <Private>
-      <Providers.ReplyOverlayProvider>
-        <Providers.GiphyOverlay>
-          <Providers.TweetsProvider>
-            <Screens.Detail />
-          </Providers.TweetsProvider>
-        </Providers.GiphyOverlay>
-      </Providers.ReplyOverlayProvider>
-    </Private>
+    <GlobalProviders.Storage>
+      <Protected>
+        <Providers.ReplyOverlayProvider>
+          <Providers.GiphyOverlay>
+            <Providers.TweetsProvider>
+              <Screens.Detail />
+            </Providers.TweetsProvider>
+          </Providers.GiphyOverlay>
+        </Providers.ReplyOverlayProvider>
+      </Protected>
+    </GlobalProviders.Storage>
   );
 
   const LoginScreenElement: React.ReactElement = (
+    <GlobalProviders.Storage>
       <Providers.Authenticated>
-        <Public>
+        <Protected>
           <Screens.Login />
-        </Public>
+        </Protected>
       </Providers.Authenticated> 
+    </GlobalProviders.Storage>
   );
 
   const RegisterScreenElement: React.ReactElement = (
-    <Providers.Authenticated>
-      <Public>
-        <Screens.Register />
-      </Public>
-    </Providers.Authenticated> 
+    <GlobalProviders.Storage>
+      <Providers.Authenticated>
+        <Protected>
+          <Screens.Register />
+        </Protected>
+      </Providers.Authenticated> 
+    </GlobalProviders.Storage>
   );
 
   const VerifyScreenElement: React.ReactElement = (
-    <Providers.Authenticated>
-      <Public>
-        <Screens.Verify />
-      </Public>
-    </Providers.Authenticated> 
+    <GlobalProviders.Storage>
+      <Providers.Authenticated>
+        <Protected>
+          <Screens.Verify />
+        </Protected>
+      </Providers.Authenticated> 
+    </GlobalProviders.Storage>
   );
 
   // useEffect(() => {
@@ -82,32 +93,30 @@ const App = () => {
   // console.log('timer: ', timer);
 
   return (
-    <GlobalProviders.Storage>
-      <Router>
-        <Routes>
+    <Router>
+      <Routes>
+        <Route 
+          path='/home'
+          element={HomeScreenElement}
+          />
+        <Route 
+          path='/home/detail/:id'
+          element={DetailScreenElement}
+          />
+        <Route 
+          path='/auth/login'
+          element={LoginScreenElement}
+          />
+        <Route 
+          path='/auth/register'
+          element={RegisterScreenElement}
+          />
           <Route 
-            path='/home'
-            element={HomeScreenElement}
-            />
-          <Route 
-            path='/home/detail/:id'
-            element={DetailScreenElement}
-            />
-          <Route 
-            path='/auth/login'
-            element={LoginScreenElement}
-            />
-          <Route 
-            path='/auth/register'
-            element={RegisterScreenElement}
-            />
-            <Route 
-            path='/auth/verify'
-            element={VerifyScreenElement}
-            />
-        </Routes>
-      </Router>
-    </GlobalProviders.Storage>
+          path='/auth/verify'
+          element={VerifyScreenElement}
+          />
+      </Routes>
+    </Router>
   );
 };
 

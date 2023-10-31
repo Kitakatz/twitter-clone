@@ -41,10 +41,13 @@ const useLoginScreenHook = (): UseLoginScreenHookResponse => {
       const response = await API().login(user);
       if (response.data.error) throw new Error(response.data.error.message);
 
-      TokenManager().setAccessToken(response.data.authPayload.accessToken);
-      TokenManager().setRefreshToken(response.data.authPayload.refreshToken);
-
-      dispatch({type:'LOGIN'});
+      dispatch({
+        type:'LOGIN',
+        payload: {
+          accessToken: response.data.authPayload.accessToken,
+          refreshToken: response.data.authPayload.refreshToken
+        }
+      });
     } catch(error: any) {
       setState(prevState => ({ ...prevState , errorMessage: error.message }));
       console.log(error);
