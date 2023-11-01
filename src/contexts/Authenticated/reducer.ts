@@ -2,20 +2,31 @@ import { AuthenticatedState, ActionType } from '.';
 import TokenManager from '../../utils/TokenManager';
 
 export const initialState: AuthenticatedState = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  tokens: {
+    accessToken: '',
+    refreshToken: ''
+  }
 };
 
 const reducer = (state: AuthenticatedState, action: ActionType) => {
   switch (action.type) {
     case 'LOGIN':
       const _isLoggedIn = (): AuthenticatedState => {
+        const accessToken: string = action.payload.accessToken;
+        const refreshToken: string = action.payload.refreshToken;
+        
         // set cache 
-        TokenManager().setAccessToken(action.payload.accessToken);
-        TokenManager().setRefreshToken(action.payload.refreshToken);
+        TokenManager().setAccessToken(accessToken);
+        TokenManager().setRefreshToken(refreshToken);
         localStorage.setItem('isLoggedIn', 'true');
 
         return {
-          isLoggedIn: true
+          isLoggedIn: true,
+          tokens: {
+            accessToken: accessToken,
+            refreshToken: refreshToken
+          }
         };
       };
 
@@ -30,7 +41,11 @@ const reducer = (state: AuthenticatedState, action: ActionType) => {
         TokenManager().removeRefreshToken();
 
         return {
-          isLoggedIn: false
+          isLoggedIn: false,
+          tokens: {
+            accessToken: '',
+            refreshToken: ''
+          }
         };
       };
 

@@ -7,6 +7,10 @@ export interface AuthenticatedProps {
 
 export type AuthenticatedState = {
   isLoggedIn: boolean;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  }
 };
 
 export type ActionType = {
