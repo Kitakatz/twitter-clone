@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticatedContext } from '../../contexts/Authenticated';
+import TokenManager from '../../utils/TokenManager';
 
 export interface StorageProps {
   children: React.ReactNode;
@@ -9,28 +10,52 @@ export interface StorageProps {
 const Storage: React.FC<StorageProps> = (props): React.ReactElement => {
   const navigate = useNavigate();
   const { state } = useContext(AuthenticatedContext);
-  const authStateCopy = useRef(state);
+
+  useEffect(() => {
+    const BC: BroadcastChannel = new BroadcastChannel("dcode");
+    const syncAllTabLogin = (event: MessageEvent<any>) => {
+      const accessToken: string = event.data.accessToken;
+      const refreshToken: string = event.data.refreshToken;
+      TokenManager().setAccessToken(accessToken);
+      TokenManager().setRefreshToken(refreshToken);
+    };
+
+    BC.addEventListener("message", syncAllTabLogin);
+
+    if (state.isLoggedIn) {
+      BC.postMessage({
+        accessToken: state.tokens.accessToken,
+        refreshToken: state.tokens.refreshToken
+      });
+    };
+
+    return () => {
+      BC.removeEventListener("message", syncAllTabLogin);
+    };
+  }, [state]);
 
   useEffect(() => {
     const syncLogoutAllTabs = (event: any) => {
       if (event.key === 'isLoggedIn' && event.newValue === 'true') {
-        console.log('useRef ', authStateCopy.current);
         navigate('/home');
       };
-
+      
       if (event.key === 'isLoggedIn' && event.newValue === 'false') {
-        console.log('useRef ', authStateCopy.current);
+        TokenManager().removeAccessToken();
+        TokenManager().removeRefreshToken();
         navigate('/auth/login');
       };
     };
 
-    const storageListener = window.addEventListener('storage', syncLogoutAllTabs);
+    window.addEventListener('storage', syncLogoutAllTabs);
  
-    return () => storageListener;
+    return () => {
+      window.removeEventListener('storage', syncLogoutAllTabs);
+    }
   }, [state]);
 
   useEffect(() => {
-    authStateCopy.current = state;
+    if(state) console.log("for ref update")
   }, [state]);
   
   return <>{props.children}</>;

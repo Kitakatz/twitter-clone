@@ -39,13 +39,13 @@ const App = () => {
   );
 
   const LoginScreenElement: React.ReactElement = (
-    <GlobalProviders.Storage>
-      <Providers.Authenticated>
-        <Protected>
-          <Screens.Login />
-        </Protected>
-      </Providers.Authenticated> 
-    </GlobalProviders.Storage>
+    <Providers.Authenticated>
+      <GlobalProviders.Storage>
+          <Protected>
+            <Screens.Login />
+          </Protected>
+      </GlobalProviders.Storage>
+    </Providers.Authenticated> 
   );
 
   const RegisterScreenElement: React.ReactElement = (
