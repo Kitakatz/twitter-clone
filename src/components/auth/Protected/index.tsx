@@ -26,7 +26,6 @@ const Protected: React.FC<PrivateProps> = (props): React.ReactElement => {
 
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     if ( !isLoggedIn || isLoggedIn === 'false' ) navigate('/auth/login');
-    if ( isLoggedIn === 'true' ) navigate('/home');
   };
 
   useEffect(() => {

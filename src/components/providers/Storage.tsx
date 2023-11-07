@@ -54,10 +54,6 @@ const Storage: React.FC<StorageProps> = (props): React.ReactElement => {
     }
   }, [state]);
 
-  useEffect(() => {
-    if(state) console.log("for ref update")
-  }, [state]);
-  
   return <>{props.children}</>;
 };
 

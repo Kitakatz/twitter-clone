@@ -5,6 +5,7 @@ import Screens from './components/screens';
 import Providers from './contexts';
 import GlobalProviders from './components/providers';
 import Protected from './components/auth/Protected';
+import Public from './components/auth/Public';
 
 const App = () => {
   // const [timer, setTimer] = useState<number>(20);
@@ -25,8 +26,8 @@ const App = () => {
   );
 
   const DetailScreenElement: React.ReactElement = (
-    <GlobalProviders.Storage>
-      {/* <Protected> */}
+    <Providers.Authenticated>
+      <Protected>
         <Providers.ReplyOverlayProvider>
           <Providers.GiphyOverlay>
             <Providers.TweetsProvider>
@@ -34,16 +35,16 @@ const App = () => {
             </Providers.TweetsProvider>
           </Providers.GiphyOverlay>
         </Providers.ReplyOverlayProvider>
-      {/* </Protected> */}
-    </GlobalProviders.Storage>
+      </Protected>
+    </Providers.Authenticated>
   );
 
   const LoginScreenElement: React.ReactElement = (
     <Providers.Authenticated>
       <GlobalProviders.Storage>
-          <Protected>
-            <Screens.Login />
-          </Protected>
+        <Public>
+          <Screens.Login />
+        </Public>
       </GlobalProviders.Storage>
     </Providers.Authenticated> 
   );
@@ -51,9 +52,9 @@ const App = () => {
   const RegisterScreenElement: React.ReactElement = (
     <GlobalProviders.Storage>
       <Providers.Authenticated>
-        <Protected>
+        <Public>
           <Screens.Register />
-        </Protected>
+        </Public>
       </Providers.Authenticated> 
     </GlobalProviders.Storage>
   );
@@ -61,9 +62,9 @@ const App = () => {
   const VerifyScreenElement: React.ReactElement = (
     <GlobalProviders.Storage>
       <Providers.Authenticated>
-        <Protected>
+        <Public>
           <Screens.Verify />
-        </Protected>
+        </Public>
       </Providers.Authenticated> 
     </GlobalProviders.Storage>
   );
