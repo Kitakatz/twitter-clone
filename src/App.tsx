@@ -8,20 +8,21 @@ import Protected from './components/auth/Protected';
 import Public from './components/auth/Public';
 
 const App = () => {
-  // const [timer, setTimer] = useState<number>(20);
   const HomeScreenElement: React.ReactElement = (
     <Providers.Authenticated>
-      <GlobalProviders.Storage>
-        <Protected>
-          <Providers.ReplyOverlayProvider>   
-            <Providers.GiphyOverlay>
-              <Providers.TweetsProvider>
-                <Screens.Home />
-              </Providers.TweetsProvider>
-            </Providers.GiphyOverlay>
-          </Providers.ReplyOverlayProvider>
-        </Protected>
-      </GlobalProviders.Storage>
+      {/* <GlobalProviders.SilentRefresh> */}
+        <GlobalProviders.Storage>
+          <Protected>
+            <Providers.ReplyOverlayProvider>   
+              <Providers.GiphyOverlay>
+                <Providers.TweetsProvider>
+                  <Screens.Home />
+                </Providers.TweetsProvider>
+              </Providers.GiphyOverlay>
+            </Providers.ReplyOverlayProvider>
+          </Protected>
+        </GlobalProviders.Storage>
+      {/* </GlobalProviders.SilentRefresh> */}
     </Providers.Authenticated>
   );
 
@@ -50,40 +51,24 @@ const App = () => {
   );
 
   const RegisterScreenElement: React.ReactElement = (
-    <GlobalProviders.Storage>
-      <Providers.Authenticated>
+    <Providers.Authenticated>
+      <GlobalProviders.Storage>
         <Public>
           <Screens.Register />
         </Public>
-      </Providers.Authenticated> 
-    </GlobalProviders.Storage>
+      </GlobalProviders.Storage>
+    </Providers.Authenticated> 
   );
 
   const VerifyScreenElement: React.ReactElement = (
-    <GlobalProviders.Storage>
-      <Providers.Authenticated>
+    <Providers.Authenticated>
+      <GlobalProviders.Storage>
         <Public>
           <Screens.Verify />
         </Public>
-      </Providers.Authenticated> 
-    </GlobalProviders.Storage>
+      </GlobalProviders.Storage>
+    </Providers.Authenticated> 
   );
-
-  // useEffect(() => {
-  //   if (timer === 0) {
-  //     dispatch({ type: 'LOGOUT' });
-  //   };
-
-  //   const ticker = setTimeout(() => {
-  //     setTimer(timer - 1);
-  //   }, 1000);
-
-  //   return () => {
-  //     clearTimeout(ticker);
-  //   };
-  // }, [timer]);
-
-  // console.log('timer: ', timer);
 
   return (
     <Router>
