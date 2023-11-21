@@ -9,6 +9,7 @@ export interface APIResponse {
   unlike: (id: string) => Promise<void>;
   register: (user: AxiosPostUserReplyParams) => Promise<any>;
   login: (user: AxiosPostLoginParams) => Promise<any>;
+  silentRefresh: () => Promise<any>;
 };
 
 export interface AxiosGetFetchTweetsResponse {

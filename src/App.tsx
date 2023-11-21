@@ -10,7 +10,7 @@ import Public from './components/auth/Public';
 const App = () => {
   const HomeScreenElement: React.ReactElement = (
     <Providers.Authenticated>
-      {/* <GlobalProviders.SilentRefresh> */}
+      <GlobalProviders.SilentRefresh>
         <GlobalProviders.Storage>
           <Protected>
             <Providers.ReplyOverlayProvider>   
@@ -22,7 +22,7 @@ const App = () => {
             </Providers.ReplyOverlayProvider>
           </Protected>
         </GlobalProviders.Storage>
-      {/* </GlobalProviders.SilentRefresh> */}
+      </GlobalProviders.SilentRefresh>
     </Providers.Authenticated>
   );
 

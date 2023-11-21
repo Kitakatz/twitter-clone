@@ -92,6 +92,17 @@ const API = (): APIResponse  => {
     return response;
   };
 
+  const silentRefresh = async (): Promise<any> => {
+    const response = await axios.post<any, AxiosPostLoginResponse>('http://localhost:3001/api/auth/refreshToken', {
+      withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+    });
+
+    return response;
+  };
+
   return {
     fetchTweets: fetchTweets,
     fetchTweetById: fetchTweetById,
@@ -100,7 +111,8 @@ const API = (): APIResponse  => {
     like: like,
     unlike: unlike,
     register: register,
-    login: login
+    login: login,
+    silentRefresh: silentRefresh
   };
 };
 
