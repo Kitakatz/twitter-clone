@@ -93,11 +93,8 @@ const API = (): APIResponse  => {
   };
 
   const silentRefresh = async (): Promise<any> => {
-    const response = await axios.post<any, AxiosPostLoginResponse>('http://localhost:3001/api/auth/refreshToken', {
-      withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+    const response = await axios.post<any, AxiosPostLoginResponse>('http://localhost:3001/api/auth/refreshToken', null, {
+      withCredentials: true
     });
 
     return response;
