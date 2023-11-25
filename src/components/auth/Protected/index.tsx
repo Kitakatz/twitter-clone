@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useNavigate} from 'react-router-dom';
 import { AuthenticatedContext } from '../../../contexts/Authenticated';
 import TokenManager from '../../../utils/TokenManager';
+import Cookies from 'js-cookie';
 
 interface PrivateProps {
   children: React.ReactNode;
@@ -24,8 +25,15 @@ const Protected: React.FC<PrivateProps> = (props): React.ReactElement => {
       })
     };
 
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if ( !isLoggedIn || isLoggedIn === 'false' ) navigate('/auth/login');
+    const cookie = Cookies.get('auth-client');
+    const cookieData = JSON.parse(cookie ? cookie : '');
+    if (!cookieData.accessToken) navigate('/auth/login');
+
+    TokenManager().setAccessToken(cookieData.accessToken);
+    TokenManager().setRefreshToken(cookieData.refreshToken);
+    localStorage.setItem('isLoggedIn', 'true');
+    
+    console.log('cookie data : ', cookieData);
   };
 
   useEffect(() => {

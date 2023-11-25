@@ -5,6 +5,7 @@ import Utils from './utils';
 import { AuthenticatedContext } from '../../../contexts/Authenticated';
 import { API } from '../../../utils/api';
 import TokenManager from '../../../utils/TokenManager';
+import { useNavigate } from 'react-router-dom';
 
 interface UseLoginScreenHookResponse {
   onChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +15,7 @@ interface UseLoginScreenHookResponse {
 };
 
 const useLoginScreenHook = (): UseLoginScreenHookResponse => {
+  const navigate = useNavigate();
   const {state:authenticatedState, dispatch} = useContext(AuthenticatedContext);
   const validate = Validate();
   const utils = Utils();
@@ -48,6 +50,8 @@ const useLoginScreenHook = (): UseLoginScreenHookResponse => {
           refreshToken: response.data.authPayload.refreshToken
         }
       });
+
+      navigate("/home");
     } catch(error: any) {
       setState(prevState => ({ ...prevState , errorMessage: error.message }));
       console.log(error);

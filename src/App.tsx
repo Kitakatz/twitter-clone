@@ -43,9 +43,7 @@ const App = () => {
   const LoginScreenElement: React.ReactElement = (
     <Providers.Authenticated>
       <GlobalProviders.Storage>
-        <Public>
-          <Screens.Login />
-        </Public>
+        <Screens.Login />
       </GlobalProviders.Storage>
     </Providers.Authenticated> 
   );
@@ -53,9 +51,7 @@ const App = () => {
   const RegisterScreenElement: React.ReactElement = (
     <Providers.Authenticated>
       <GlobalProviders.Storage>
-        <Public>
-          <Screens.Register />
-        </Public>
+        <Screens.Register />
       </GlobalProviders.Storage>
     </Providers.Authenticated> 
   );
@@ -63,9 +59,7 @@ const App = () => {
   const VerifyScreenElement: React.ReactElement = (
     <Providers.Authenticated>
       <GlobalProviders.Storage>
-        <Public>
-          <Screens.Verify />
-        </Public>
+        <Screens.Verify />
       </GlobalProviders.Storage>
     </Providers.Authenticated> 
   );

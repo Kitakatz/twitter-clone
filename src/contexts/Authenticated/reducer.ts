@@ -1,5 +1,6 @@
 import { AuthenticatedState, ActionType } from '.';
 import TokenManager from '../../utils/TokenManager';
+import Cookies from 'js-cookie';
 
 export const initialState: AuthenticatedState = {
   isLoggedIn: false,
@@ -20,6 +21,7 @@ const reducer = (state: AuthenticatedState, action: ActionType) => {
         TokenManager().setAccessToken(accessToken);
         TokenManager().setRefreshToken(refreshToken);
         localStorage.setItem('isLoggedIn', 'true');
+        Cookies.set("auth-client", JSON.stringify({ accessToken: accessToken, refreshToken: refreshToken }));
 
         return {
           isLoggedIn: true,
