@@ -10,6 +10,7 @@ export interface APIResponse {
   register: (user: AxiosPostUserReplyParams) => Promise<any>;
   login: (user: AxiosPostLoginParams) => Promise<any>;
   silentRefresh: () => Promise<any>;
+  syncSessionTokens: () => Promise<any>;
 };
 
 export interface AxiosGetFetchTweetsResponse {
@@ -118,7 +119,10 @@ export type AxiosPostLoginResponse = AxiosPostLoginSuccess | AxiosPostLoginError
 
 export interface AxiosPostLoginSuccess {
   data: {
-    message: string;
+    authPayload: {
+      accessToken: string;
+      refreshToken: string;
+    };
   };
 };
 

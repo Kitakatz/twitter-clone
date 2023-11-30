@@ -100,6 +100,15 @@ const API = (): APIResponse  => {
     return response;
   };
 
+  const syncSessionTokens = async (): Promise<AxiosPostLoginResponse> => {
+    const response = await axios.post<any, AxiosPostLoginResponse>('http://localhost:3001/api/auth/syncSessionTokens', null, {
+      withCredentials: true
+    });
+
+    return response;
+  };
+
+
   return {
     fetchTweets: fetchTweets,
     fetchTweetById: fetchTweetById,
@@ -109,7 +118,8 @@ const API = (): APIResponse  => {
     unlike: unlike,
     register: register,
     login: login,
-    silentRefresh: silentRefresh
+    silentRefresh: silentRefresh,
+    syncSessionTokens: syncSessionTokens
   };
 };
 

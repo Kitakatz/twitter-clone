@@ -3,6 +3,7 @@ import { useNavigate} from 'react-router-dom';
 import { AuthenticatedContext } from '../../../contexts/Authenticated';
 import TokenManager from '../../../utils/TokenManager';
 import Cookies from 'js-cookie';
+import { API } from '../../../utils/api';
 
 interface PrivateProps {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ const Protected: React.FC<PrivateProps> = (props): React.ReactElement => {
   const navigate = useNavigate();
   const { state, dispatch } = useContext(AuthenticatedContext);
 
-  const onMount = (): void => {
+  const onMount = async (): Promise<any> => {
     const accessToken = sessionStorage.getItem('accessToken');
     const refreshToken = sessionStorage.getItem('refreshToken');
     if (accessToken && TokenManager().isTokenValid(accessToken)) {
@@ -25,15 +26,16 @@ const Protected: React.FC<PrivateProps> = (props): React.ReactElement => {
       })
     };
 
-    const cookie = Cookies.get('auth-client');
-    const cookieData = JSON.parse(cookie ? cookie : '');
-    if (!cookieData.accessToken) navigate('/auth/login');
+    // const cookie = Cookies.get('auth-client');
+    // const cookieData = JSON.parse(cookie ? cookie : '');
+    // if (!cookieData.accessToken) navigate('/auth/login');
 
-    TokenManager().setAccessToken(cookieData.accessToken);
-    TokenManager().setRefreshToken(cookieData.refreshToken);
+    const response = await API().syncSessionTokens();
+    console.log('Response: ', response);
+
+    TokenManager().setAccessToken(response.data.authPayload.accessToken);
+    TokenManager().setRefreshToken(response.data.authPayload.refreshToken);
     localStorage.setItem('isLoggedIn', 'true');
-    
-    console.log('cookie data : ', cookieData);
   };
 
   useEffect(() => {
