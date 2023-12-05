@@ -48,6 +48,7 @@ const SilentRefresh: React.FC<SilentRefreshProps> = (props) => {
       clearTimeout(ticker);
     };
   }, [timer]);
+  // console.log('timer: ', timer);
 
   return (
     <>{ props.children }</>

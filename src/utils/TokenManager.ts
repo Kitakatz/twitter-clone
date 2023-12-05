@@ -37,7 +37,7 @@ const TokenManager = (): TokenManagerResponse => {
 
   const isTokenValid = (token: string) => {
     const claims: JwtPayload = decodeJWT(token);
-    console.log('claims: ', claims.exp);
+    // console.log('claims: ', claims.exp);
     if (!claims.exp) return;
     const expirationTimeInSeconds = claims.exp * 1000;
     const now = new Date();

@@ -4,7 +4,8 @@ export interface APIResponse {
   fetchTweets: (accessToken: string) => Promise<Tweet[]>;
   fetchTweetById: (id: string) => Promise<Tweet>;
   addReply: (reply: AxiosPostAddReplyParams) => Promise<any>;
-  fetchLikes: (id: string) => Promise<number>;
+  addTweet: (accessToken: string, tweet: AxiosPostAddTweetParams) => Promise<any>;
+  fetchLikes: (accessToken: string, id: string) => Promise<number>;
   like: (id: string) => Promise<void>;
   unlike: (id: string) => Promise<void>;
   register: (user: AxiosPostUserReplyParams) => Promise<any>;
@@ -53,6 +54,31 @@ export interface AxiosPostAddReplyParams {
   mediaType: string;
   likes: number;
   tweetID: string;
+};
+
+export type AxiosPostAddTweetResponse = AxiosPostAddTweetSuccess | AxiosPostAddTweetError;
+
+export interface AxiosPostAddTweetSuccess {
+  data: {
+    message: string;
+  };
+};
+
+export interface AxiosPostAddTweetError {
+  data: {
+    error: {
+      message: string;
+    };
+  };
+};
+
+
+export interface AxiosPostAddTweetParams {
+  id: string;
+  author: string; 
+  tweet: string;
+  replies: any;
+  likes: number;
 };
 
 export interface AxiosGetFetchLikesResponse {

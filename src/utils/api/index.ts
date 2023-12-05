@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Tweet, tweets as localTweets } from '../../data/tweets';
-import { APIResponse, AxiosGetFetchLikesResponse, AxiosGetFetchTweetParams, AxiosGetFetchTweetResponse, AxiosGetFetchTweetsResponse, AxiosPostAddLikeParams, AxiosPostAddReplyParams, AxiosPostAddReplyResponse, AxiosPostAddUserResponse, AxiosPostLoginParams, AxiosPostLoginResponse, AxiosPostRegisterParams, AxiosPostRegisterResponse, AxiosPostUserReplyParams } from './interface';
+import { APIResponse, AxiosGetFetchLikesResponse, AxiosGetFetchTweetParams, AxiosGetFetchTweetResponse, AxiosGetFetchTweetsResponse, AxiosPostAddLikeParams, AxiosPostAddReplyParams, AxiosPostAddReplyResponse, AxiosPostAddTweetParams, AxiosPostAddTweetResponse, AxiosPostAddUserResponse, AxiosPostLoginParams, AxiosPostLoginResponse, AxiosPostRegisterParams, AxiosPostRegisterResponse, AxiosPostUserReplyParams } from './interface';
 
 const getAllTweets = async (): Promise<Tweet[]> => {
   return new Promise((resolve,reject) => {
@@ -55,18 +55,34 @@ const API = (): APIResponse  => {
     return tweet;
   };
 
+  const addTweet = async (accessToken: string, tweet: AxiosPostAddTweetParams): Promise<any> => {
+    const response = await axios.post<any, AxiosPostAddTweetResponse , AxiosPostAddTweetParams>('http://localhost:3001/api/tweets/addTweet', tweet, {
+      withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      },
+    );
+
+    return response;
+  };
+
   const addReply = async (reply: AxiosPostAddReplyParams): Promise<any> => {
     const response = await axios.post<any, AxiosPostAddReplyResponse , AxiosPostAddReplyParams>('http://localhost:3001/api/replies/addReply', reply);
 
     return response;
   };
 
-  const fetchLikes = async (id: string): Promise<number> => {
+  const fetchLikes = async (accessToken: string, id: string): Promise<number> => {
     const params: AxiosGetFetchTweetParams = {
       id: id
     };
     const response = await axios.get<any, AxiosGetFetchLikesResponse, any>('http://localhost:3001/api/likes/fetchLikes', {
-      params: params
+      params: params,
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
     });
     const likes: number = response.data.likes;
     return likes;
@@ -112,6 +128,7 @@ const API = (): APIResponse  => {
   return {
     fetchTweets: fetchTweets,
     fetchTweetById: fetchTweetById,
+    addTweet: addTweet,
     addReply: addReply,
     fetchLikes: fetchLikes,
     like: like,

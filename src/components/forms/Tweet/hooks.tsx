@@ -8,6 +8,7 @@ import { ReplyOverlayContext } from '../../../contexts/ReplyOverlay';
 import Icons from '../../icons';
 import { TweetsContext } from '../../../contexts/Tweets';
 import { Tweet } from '../../../data/tweets';
+import TokenManager from '../../../utils/TokenManager';
 
 const useTweetFormHook = () => {
   const { state: replyOverlayState, dispatch: replyOverlayDispatch } = useContext(ReplyOverlayContext);
@@ -105,30 +106,36 @@ const useTweetFormHook = () => {
   const onSubmitHandler = async ( ): Promise<void> => {
     try {
       let mediaType: string = '';
-      const mediaURL: string = state.previewUrl || giphyOverlayContext.state.gif;
+      // const mediaURL: string = state.previewUrl || giphyOverlayContext.state.gif;
       if (state.file) mediaType = state.file.type;
       if (giphyOverlayContext.state.gif) mediaType = 'image/gif';
-
-      const reply = {
+      
+      const tweet = {
         id: uuid(),
         author: 'Kitakat',
         tweet: state.value,
-        mediaURL: mediaURL,
-        mediaType: mediaType,
-        likes: 0,
-        tweetID: replyOverlayState.tweetID
+        replies: [],
+        likes: 0
       };
       
-      const tweet = tweetState.tweets.find((tweet) => tweet.id === replyOverlayState.tweetID);
-      if (!tweet) return;
+      // const tweet = tweetState.tweets.find((tweet) => tweet.id === replyOverlayState.tweetID);
+      console.log('clicked', tweetState.tweets);
+      // if (!tweet) return;
       
-      tweet.replies.push(reply);
+      tweetState.tweets.push(tweet);
       Cache().setTweets(tweetState.tweets, setTweetStorage);
 
-      replyOverlayDispatch({ type: 'TOGGLE', payload: { tweetID: replyOverlayState.tweetID } });
       giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE_RESET });
+
+      const accessToken = TokenManager().getAccessToken();
+      // const isTokenValid = TokenManager().isTokenValid(accessToken);
       
-      const response = await API().addReply(reply);
+      const response = await API().addTweet(accessToken, tweet);
+      setState({
+        value: '',
+        file: null,
+        previewUrl: ''
+      });
       
       if (response.data.error) throw new Error(response.data.error.message);
 

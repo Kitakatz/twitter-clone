@@ -3,6 +3,7 @@ import { LikeState, UseLikeHook } from './interface';
 import { API } from '../../../../../utils/api';
 import { useParams } from 'react-router-dom';
 import { RouterParams } from '../../../../screens/Detail/interfaces';
+import TokenManager from '../../../../../utils/TokenManager';
 
 const useLikeHook = (tweetID: string): UseLikeHook => {
   const params = useParams<RouterParams>();
@@ -31,7 +32,8 @@ const useLikeHook = (tweetID: string): UseLikeHook => {
   };
 
   const componentDidMountHandler = useCallback(async () => {
-    const likes = await API().fetchLikes( params.id || tweetID );
+    const accessToken = TokenManager().getAccessToken();
+    const likes = await API().fetchLikes( accessToken, params.id || tweetID );
 
     setState({ counter: likes, isLiked: false });
   }, []);

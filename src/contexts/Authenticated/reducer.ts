@@ -21,7 +21,7 @@ const reducer = (state: AuthenticatedState, action: ActionType) => {
         TokenManager().setAccessToken(accessToken);
         TokenManager().setRefreshToken(refreshToken);
         localStorage.setItem('isLoggedIn', 'true');
-        Cookies.set("auth-client", JSON.stringify({ accessToken: accessToken, refreshToken: refreshToken }));
+        // Cookies.set("auth-client", JSON.stringify({ accessToken: accessToken, refreshToken: refreshToken }));
 
         return {
           isLoggedIn: true,

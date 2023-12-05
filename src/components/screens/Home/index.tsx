@@ -14,14 +14,17 @@ import Forms from '../../forms';
 import getCurrentPosition from '../../../utils/getCurrentPosition';
 import Buttons from '../../buttons';
 import './styles.css';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC<HomeScreenProps> = (props): React.ReactElement => {
   const { state } = useHomeScreenHook();
   const { dispatch } = useContext(AuthenticatedContext);
   const windowSize = useWindowSize(true);
+  const navigate = useNavigate();
 
   const logout = (): void => {
     dispatch({ type: 'LOGOUT' });
+    navigate('/auth/login');
   };
 
   const renderItems = (): React.ReactElement[] => {
