@@ -11,7 +11,7 @@ const Like: React.FC<LikeProps> = (props): React.ReactElement | null => {
     componentDidMountHandler();
   }, [componentDidMountHandler]);
 
-  if ( !state.counter ) return null;
+  if ( !state.isInitialized ) return null;
 
   return (
     <div

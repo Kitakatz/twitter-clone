@@ -4,6 +4,7 @@ export interface LikeProps {
 };
 
 export interface LikeState { 
+  isInitialized: boolean;
   counter: number;
   isLiked: boolean;
 };

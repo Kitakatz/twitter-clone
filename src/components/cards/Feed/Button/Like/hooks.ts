@@ -8,6 +8,7 @@ import TokenManager from '../../../../../utils/TokenManager';
 const useLikeHook = (tweetID: string): UseLikeHook => {
   const params = useParams<RouterParams>();
   const [state, setState] = useState<LikeState>({
+    isInitialized: false,
     counter: 0,
     isLiked: false
   });
@@ -19,12 +20,14 @@ const useLikeHook = (tweetID: string): UseLikeHook => {
     try {
       !state.isLiked ?   await API().like(params.id || '') : await API().unlike(params.id || '');
       setState(prevState => ({
+        isInitialized: prevState.isInitialized, 
         counter: countering(prevState.isLiked, prevState.counter),
         isLiked: !prevState.isLiked
       }));
     } catch (error) {
       console.error('Error has been detected. Reverting state.. ', error);
       setState(prevState => ({
+        isInitialized: prevState.isInitialized, 
         counter: countering(prevState.isLiked, prevState.counter),
         isLiked: !prevState.isLiked
       }));
@@ -34,8 +37,9 @@ const useLikeHook = (tweetID: string): UseLikeHook => {
   const componentDidMountHandler = useCallback(async () => {
     const accessToken = TokenManager().getAccessToken();
     const likes = await API().fetchLikes( accessToken, params.id || tweetID );
+    console.log('likes: ',likes);
 
-    setState({ counter: likes, isLiked: false });
+    setState({ isInitialized: true, counter: likes, isLiked: false });
   }, []);
   
 
