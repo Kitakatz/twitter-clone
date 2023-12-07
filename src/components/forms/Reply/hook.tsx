@@ -8,6 +8,7 @@ import { ReplyOverlayContext, ReplyOverlayProviderState } from '../../../context
 import Icons from '../../icons';
 import { TweetsContext } from '../../../contexts/Tweets';
 import { Tweet } from '../../../data/tweets';
+import TokenManager from '../../../utils/TokenManager';
 
 interface ReplyFormHookResponse {
   onChangeHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -137,8 +138,9 @@ const useReplyFormHook = (): ReplyFormHookResponse => {
 
       replyOverlayDispatch({ type: 'TOGGLE', payload: { tweetID: replyOverlayState.tweetID } });
       giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE_RESET });
+      const accessToken = TokenManager().getAccessToken();
       
-      const response = await API().addReply(reply);
+      const response = await API().addReply(accessToken, reply);
       
       if (response.data.error) throw new Error(response.data.error.message);
 

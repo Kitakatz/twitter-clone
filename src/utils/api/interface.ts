@@ -3,11 +3,11 @@ import { Tweet } from '../../data/tweets';
 export interface APIResponse {
   fetchTweets: (accessToken: string) => Promise<Tweet[]>;
   fetchTweetById: (id: string) => Promise<Tweet>;
-  addReply: (reply: AxiosPostAddReplyParams) => Promise<any>;
+  addReply: (accessToken: string, reply: AxiosPostAddReplyParams) => Promise<any>;
   addTweet: (accessToken: string, tweet: AxiosPostAddTweetParams) => Promise<any>;
   fetchLikes: (accessToken: string, id: string) => Promise<number>;
-  like: (id: string) => Promise<void>;
-  unlike: (id: string) => Promise<void>;
+  like: (accessToken: string, id: string) => Promise<void>;
+  unlike: (accessToken: string, id: string) => Promise<void>;
   register: (user: AxiosPostUserReplyParams) => Promise<any>;
   login: (user: AxiosPostLoginParams) => Promise<any>;
   silentRefresh: () => Promise<any>;

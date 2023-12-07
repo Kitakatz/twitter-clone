@@ -50,9 +50,9 @@ const useTweetFormHook = () => {
   };
 
   const onClickGifHandler = (): void => {
-    
+    replyOverlayDispatch({ type: 'TOGGLE', payload: { tweetID: replyOverlayState.tweetID } });
+    giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE });
 
-    // giphyOverlayContext.dispatch({ type: GiphyOverlayActionType.TOGGLE });
   };
 
   const onClickClosePreview = (): void => {

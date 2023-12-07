@@ -6,8 +6,8 @@ const Content: React.FC<ContentProps> = (props): React.ReactElement => {
   return (
     <div className='content'>
       <div className='handler-section'>
-        <div className='handler'>AWS Amplify</div>
-        <div className='replyTo'>@{props.tweet.author}</div>
+        <div className='handler'>{props.tweet.author}</div>
+        <div className='replyTo'>@AWS Amplify</div>
         <div className='seperator'>·</div>
         <div className='timestamp'>Aug 2</div>
       </div>

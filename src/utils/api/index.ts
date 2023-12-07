@@ -61,14 +61,20 @@ const API = (): APIResponse  => {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
-      },
+      }
     );
 
     return response;
   };
 
-  const addReply = async (reply: AxiosPostAddReplyParams): Promise<any> => {
-    const response = await axios.post<any, AxiosPostAddReplyResponse , AxiosPostAddReplyParams>('http://localhost:3001/api/replies/addReply', reply);
+  const addReply = async (accessToken: string, reply: AxiosPostAddReplyParams): Promise<any> => {
+    const response = await axios.post<any, AxiosPostAddReplyResponse , AxiosPostAddReplyParams>('http://localhost:3001/api/replies/addReply', reply, {
+      withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
 
     return response;
   };
@@ -88,12 +94,28 @@ const API = (): APIResponse  => {
     return likes;
   };
 
-  const like = async (id: string): Promise<void> => {
-    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/api/likes/like', { id: id });
+  const like = async (accessToken: string, id: string): Promise<void> => {
+    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/api/likes/like', 
+      { id: id }, 
+      {
+        withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+      }
+    );
   };
 
-  const unlike = async (id: string): Promise<void> => {
-    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/api/likes/unlike', { id: id });
+  const unlike = async (accessToken: string, id: string): Promise<void> => {
+    await axios.post<any, any, AxiosPostAddLikeParams>('http://localhost:3001/api/likes/unlike', 
+      { id: id },
+      {
+        withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+    );
   };
 
   const register = async (user: AxiosPostRegisterParams): Promise<any> => {

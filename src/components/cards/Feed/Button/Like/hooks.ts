@@ -18,7 +18,8 @@ const useLikeHook = (tweetID: string): UseLikeHook => {
     const countering = (isLiked: boolean, counter: number): number => !isLiked ? counter + 1 : counter - 1;
 
     try {
-      !state.isLiked ?   await API().like(params.id || '') : await API().unlike(params.id || '');
+      const accessToken = TokenManager().getAccessToken();
+      !state.isLiked ?   await API().like(accessToken, params.id || '') : await API().unlike(accessToken, params.id || '');
       setState(prevState => ({
         isInitialized: prevState.isInitialized, 
         counter: countering(prevState.isLiked, prevState.counter),
@@ -37,7 +38,6 @@ const useLikeHook = (tweetID: string): UseLikeHook => {
   const componentDidMountHandler = useCallback(async () => {
     const accessToken = TokenManager().getAccessToken();
     const likes = await API().fetchLikes( accessToken, params.id || tweetID );
-    console.log('likes: ',likes);
 
     setState({ isInitialized: true, counter: likes, isLiked: false });
   }, []);
