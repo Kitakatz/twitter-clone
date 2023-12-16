@@ -36,10 +36,16 @@ const useLikeHook = (tweetID: string): UseLikeHook => {
   };
 
   const componentDidMountHandler = useCallback(async () => {
-    const accessToken = TokenManager().getAccessToken();
-    const likes = await API().fetchLikes( accessToken, params.id || tweetID );
-
-    setState({ isInitialized: true, counter: likes, isLiked: false });
+    try{
+      const accessToken = TokenManager().getAccessToken();
+      const response = await API().fetchLikes( accessToken, params.id || tweetID );
+  
+      if (response.data.error) throw new Error(response.data.error.message);
+  
+      setState({ isInitialized: true, counter: response.data.likes, isLiked: false });
+    } catch(error: any) {
+      setState({ isInitialized: true, counter: 0, isLiked: false });
+    };
   }, []);
   
 

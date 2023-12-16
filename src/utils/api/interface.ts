@@ -5,7 +5,7 @@ export interface APIResponse {
   fetchTweetById: (id: string) => Promise<Tweet>;
   addReply: (accessToken: string, reply: AxiosPostAddReplyParams) => Promise<any>;
   addTweet: (accessToken: string, tweet: AxiosPostAddTweetParams) => Promise<any>;
-  fetchLikes: (accessToken: string, id: string) => Promise<number>;
+  fetchLikes: (accessToken: string, id: string) => Promise<any>;
   like: (accessToken: string, id: string) => Promise<void>;
   unlike: (accessToken: string, id: string) => Promise<void>;
   register: (user: AxiosPostUserReplyParams) => Promise<any>;

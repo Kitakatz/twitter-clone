@@ -79,7 +79,7 @@ const API = (): APIResponse  => {
     return response;
   };
 
-  const fetchLikes = async (accessToken: string, id: string): Promise<number> => {
+  const fetchLikes = async (accessToken: string, id: string): Promise<any> => {
     const params: AxiosGetFetchTweetParams = {
       id: id
     };
@@ -90,8 +90,7 @@ const API = (): APIResponse  => {
         Authorization: `Bearer ${accessToken}`
       }
     });
-    const likes: number = response.data.likes;
-    return likes;
+    return response;
   };
 
   const like = async (accessToken: string, id: string): Promise<void> => {

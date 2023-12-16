@@ -30,7 +30,7 @@ const Cache = (): CacheResponse => {
     const localTweets: Tweet[] = JSON.parse(localTweetsFromStorage) || [];
 
     if (localTweets.length === 0) return false;
-    const foundTweet: Tweet = localTweets.find((tweet: Tweet) => tweet.id === id) || {  id: "", author: "", tweet: "", likes: 0, replies: [] };
+    const foundTweet: Tweet = localTweets.find((tweet: Tweet) => tweet.id === id) || {  id: "", author: "", tweet: "", likes: 0, replies: [], mediaType: '', mediaURL: '' };
     setTweetState({ tweet: foundTweet, loading: false });
 
     return true;

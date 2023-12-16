@@ -5,6 +5,8 @@ export interface Tweet {
   tweet: string;
   replies: Reply[];
   likes: number;
+  mediaURL: string;
+  mediaType: string;
 };
 
 interface Reply {
@@ -22,6 +24,8 @@ export const tweets: Tweet[] = [
     tweet:
       "NEW Amplify Flutter Authentication support for Web and Desktop (Developer Preview) 🙌🏻🙌🏻 With the latest release from AWS Amplify Flutter, you can set up a fully functional authentication flows for Mobile, Web and Desktop 📱🕸🖥",
     likes: 32,
+    mediaType: '',
+    mediaURL: '',
     replies: [
       {
         id: '01',
@@ -45,6 +49,8 @@ export const tweets: Tweet[] = [
     tweet:
       "Excited to be at @AllThingsOpen in Raleigh, NC next week with our friends at @AWSOpen Read about our plans below! 👇 🔗 https://go.aws/3VYrQOh",
     likes: 20,
+    mediaType: '',
+    mediaURL: '',
     replies: []
   },
   {
@@ -53,6 +59,8 @@ export const tweets: Tweet[] = [
     tweet:
       "The wait is over, say hello to the new Amplify Library for Swift! 🚀 We listened to you and we are happy to announce beta support for macOS!!",
     likes: 101,
+    mediaType: '',
+    mediaURL: '',
     replies: []
   },
 ];

@@ -14,6 +14,8 @@ const useDetailScreenHook = (): UseDetailScreenHookResponse => {
       author: "",
       tweet: "",
       likes: 0,
+      mediaType: '',
+      mediaURL: '',
       replies: [],
     },
     loading: true

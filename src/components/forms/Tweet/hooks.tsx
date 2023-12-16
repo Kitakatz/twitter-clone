@@ -115,7 +115,9 @@ const useTweetFormHook = () => {
         author: 'Kitakat',
         tweet: state.value,
         replies: [],
-        likes: 0
+        likes: 0,
+        mediaURL: '',
+        mediaType: ''
       };
       
       // const tweet = tweetState.tweets.find((tweet) => tweet.id === replyOverlayState.tweetID);
